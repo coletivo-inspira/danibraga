@@ -14,7 +14,7 @@ Site portfolio de design de interiores e branding para o mercado de hospitalidad
 
 1. Instale a extensão **Live Server** no VS Code  
    (`Ctrl+P` → `ext install ritwickdey.liveserver`)
-2. Abra a pasta `d:\IA\dani` no VS Code
+2. Abra a pasta `d:\Coletivo Inspira\danibraga` no VS Code
 3. Clique em **"Go Live"** na barra de status (canto inferior direito)
 4. O navegador abrirá automaticamente em `http://localhost:5500`
 
@@ -22,7 +22,7 @@ Site portfolio de design de interiores e branding para o mercado de hospitalidad
 
 ```bash
 # Na pasta raiz do projeto:
-cd d:\IA\dani
+cd "d:\Coletivo Inspira\danibraga"
 python -m http.server 5500
 ```
 
