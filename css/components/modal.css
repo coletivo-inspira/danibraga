@@ -1,0 +1,182 @@
+/* ============================================
+   MODAL — Dani Braga Design
+   Overlay genérico + lightbox reutilizável
+   ============================================ */
+
+/* ─── OVERLAY BASE ──────────────────────────── */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-5);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-base);
+}
+
+.modal.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Backdrop */
+.modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 12, 8, 0.92);
+  cursor: pointer;
+}
+
+/* ─── CONTEÚDO ──────────────────────────────── */
+
+.modal__dialog {
+  position: relative;
+  z-index: 1;
+  background-color: var(--color-cream-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-2xl);
+  max-width: 640px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  transform: translateY(16px) scale(0.98);
+  transition: transform var(--transition-base);
+}
+
+.modal.is-open .modal__dialog {
+  transform: translateY(0) scale(1);
+}
+
+.modal__dialog--wide {
+  max-width: 900px;
+}
+
+.modal__dialog--full {
+  max-width: 100%;
+  max-height: 100vh;
+  border-radius: 0;
+  margin: 0;
+}
+
+/* ─── ESTRUTURA INTERNA ─────────────────────── */
+
+.modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-6) var(--space-8);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.modal__title {
+  font-family: var(--font-serif);
+  font-size: var(--text-xl);
+  font-weight: 400;
+  color: var(--color-dark);
+}
+
+.modal__body {
+  padding: var(--space-8);
+}
+
+.modal__footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-4);
+  padding: var(--space-5) var(--space-8);
+  border-top: 1px solid var(--color-border);
+}
+
+/* ─── BOTÃO FECHAR ──────────────────────────── */
+
+.modal__close {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-muted);
+  border-radius: var(--radius-full);
+  font-size: var(--text-xl);
+  line-height: 1;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.modal__close:hover {
+  background-color: var(--color-cream);
+  color: var(--color-dark);
+}
+
+.modal__close:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}
+
+/* ─── MODAL DE IMAGEM ───────────────────────── */
+
+.modal--image .modal__dialog {
+  background: transparent;
+  box-shadow: none;
+  max-width: min(92vw, 1200px);
+  overflow: visible;
+}
+
+.modal--image .modal__close {
+  position: fixed;
+  top: var(--space-5);
+  right: var(--space-5);
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: var(--color-white);
+  width: 44px;
+  height: 44px;
+}
+
+.modal--image .modal__close:hover {
+  background: rgba(255,255,255,0.2);
+  color: var(--color-white);
+}
+
+.modal--image img {
+  max-width: 100%;
+  max-height: 88vh;
+  height: auto;
+  display: block;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-2xl);
+}
+
+/* ─── ANIMAÇÕES ─────────────────────────────── */
+
+.modal--slide-up .modal__dialog {
+  transform: translateY(32px);
+}
+
+.modal--slide-up.is-open .modal__dialog {
+  transform: translateY(0);
+}
+
+/* ─── RESPONSIVO ────────────────────────────── */
+
+@media (max-width: 639px) {
+  .modal {
+    padding: var(--space-4);
+  }
+
+  .modal__body {
+    padding: var(--space-5);
+  }
+
+  .modal__header,
+  .modal__footer {
+    padding-inline: var(--space-5);
+  }
+}

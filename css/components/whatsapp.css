@@ -1,0 +1,112 @@
+/* ============================================
+   WHATSAPP — Dani Braga Design
+   Botão flutuante bottom-right
+   ============================================ */
+
+/* ─── BOTÃO FLUTUANTE ───────────────────────── */
+
+.whatsapp-float {
+  position: fixed;
+  bottom: var(--space-6);
+  right: var(--space-6);
+  z-index: var(--z-fixed);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  text-decoration: none;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
+  transition: opacity var(--transition-base), transform var(--transition-base);
+}
+
+.whatsapp-float.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+/* ─── TOOLTIP ───────────────────────────────── */
+
+.whatsapp-float__tip {
+  background: var(--color-dark);
+  color: var(--color-cream);
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: 400;
+  line-height: var(--leading-normal);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  transform: translateX(8px);
+  transition: opacity var(--transition-base), transform var(--transition-base);
+  pointer-events: none;
+  max-width: 220px;
+  white-space: normal;
+  text-align: center;
+  display: none; /* visível apenas em hover no desktop */
+}
+
+@media (min-width: 768px) {
+  .whatsapp-float__tip {
+    display: block;
+  }
+
+  .whatsapp-float:hover .whatsapp-float__tip {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ─── ÍCONE ─────────────────────────────────── */
+
+.whatsapp-float__icon {
+  width: 54px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-whatsapp);
+  border-radius: var(--radius-full);
+  box-shadow: 0 4px 18px rgba(37, 211, 102, 0.35);
+  flex-shrink: 0;
+  transition: background-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.whatsapp-float:hover .whatsapp-float__icon {
+  background-color: var(--color-whatsapp-dark);
+  transform: scale(1.06);
+  box-shadow: 0 6px 24px rgba(37, 211, 102, 0.45);
+}
+
+.whatsapp-float:focus-visible .whatsapp-float__icon {
+  outline: 3px solid var(--color-whatsapp);
+  outline-offset: 3px;
+}
+
+.whatsapp-float__icon svg {
+  width: 28px;
+  height: 28px;
+  fill: var(--color-white);
+}
+
+/* ─── RESPONSIVO ────────────────────────────── */
+
+@media (max-width: 639px) {
+  .whatsapp-float {
+    bottom: var(--space-5);
+    right: var(--space-4);
+  }
+
+  .whatsapp-float__icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .whatsapp-float__icon svg {
+    width: 24px;
+    height: 24px;
+  }
+}

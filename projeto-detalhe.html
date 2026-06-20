@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt" data-lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Detalhe do projeto de identidade visual — Dani Braga Design. Processo criativo, estratégia e resultados de branding para hospitalidade." />
+
+  <meta property="og:type"    content="article" />
+  <meta property="og:url"     content="https://danibraga.design/projeto-detalhe.html" />
+  <meta property="og:title"   content="Projeto — Dani Braga Design" />
+  <meta property="og:image"   content="https://danibraga.design/assets/images/og-project.jpg" />
+
+  <title>Projeto — Dani Braga Design</title>
+  <link rel="canonical" href="https://danibraga.design/projeto-detalhe.html" />
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/pages/project-detail.css" />
+</head>
+<body>
+
+  <!-- ════ HEADER ══════════════════════════════ -->
+  <header class="header" role="banner">
+    <div class="header__inner container">
+      <a href="/" class="header__logo" aria-label="Dani Braga Design — página inicial">
+        <span class="header__logo-text">Dani Braga</span>
+        <span class="header__logo-sub">Design</span>
+      </a>
+
+      <nav class="nav" aria-label="Navegação principal">
+        <ul class="nav__list" role="list">
+          <li class="nav__item"><a href="/"            class="nav__link" data-i18n="nav.home">Início</a></li>
+          <li class="nav__item"><a href="projetos.html" class="nav__link" data-i18n="nav.projects">Projetos</a></li>
+          <li class="nav__item"><a href="sobre.html"   class="nav__link" data-i18n="nav.about">Sobre</a></li>
+          <li class="nav__item"><a href="contato.html" class="nav__link nav__link--cta" data-i18n="nav.contact">Contato</a></li>
+        </ul>
+        <div class="nav__lang" aria-label="Selecionar idioma">
+          <button class="nav__lang-btn is-active" data-lang-switch="pt" aria-label="Português">PT</button>
+          <span class="nav__lang-sep">|</span>
+          <button class="nav__lang-btn" data-lang-switch="en" aria-label="English">EN</button>
+        </div>
+      </nav>
+
+      <button class="nav__toggle" aria-expanded="false" aria-controls="nav-drawer" aria-label="Abrir menu">
+        <span class="nav__toggle-bar"></span>
+        <span class="nav__toggle-bar"></span>
+        <span class="nav__toggle-bar"></span>
+      </button>
+    </div>
+
+    <div class="nav__drawer" id="nav-drawer" role="dialog" aria-label="Menu mobile" aria-hidden="true">
+      <ul class="nav__drawer-list" role="list">
+        <li><a href="/"            class="nav__link" data-i18n="nav.home">Início</a></li>
+        <li><a href="projetos.html" class="nav__link" data-i18n="nav.projects">Projetos</a></li>
+        <li><a href="sobre.html"   class="nav__link" data-i18n="nav.about">Sobre</a></li>
+        <li><a href="contato.html" class="nav__link" data-i18n="nav.contact">Contato</a></li>
+      </ul>
+    </div>
+    <div class="nav__backdrop" aria-hidden="true"></div>
+  </header>
+
+  <main id="main-content">
+
+    <!-- ════ BREADCRUMB ══════════════════════════ -->
+    <nav class="breadcrumb container" aria-label="Caminho de navegação">
+      <ol role="list">
+        <li><a href="/" data-i18n="nav.home">Início</a></li>
+        <li aria-hidden="true">/</li>
+        <li><a href="projetos.html" data-i18n="nav.projects">Projetos</a></li>
+        <li aria-hidden="true">/</li>
+        <li aria-current="page" id="breadcrumb-title">Carregando…</li>
+      </ol>
+    </nav>
+
+    <!-- ════ PROJECT HERO ════════════════════════ -->
+    <section class="project-hero" id="project-hero" aria-labelledby="project-title">
+      <div class="project-hero__cover">
+        <img id="project-cover" src="" alt="" loading="eager" />
+        <div class="project-hero__cover-overlay" aria-hidden="true"></div>
+      </div>
+
+      <div class="project-hero__meta">
+        <span class="project-hero__category eyebrow" id="project-category"></span>
+        <h1 class="project-hero__title" id="project-title"></h1>
+        <p class="project-hero__tagline" id="project-tagline"></p>
+
+        <dl class="project-hero__details">
+          <div class="project-hero__detail">
+            <dt data-i18n="projectDetail.client">Cliente</dt>
+            <dd id="project-client"></dd>
+          </div>
+          <div class="project-hero__detail">
+            <dt data-i18n="projectDetail.scope">Escopo</dt>
+            <dd id="project-scope"></dd>
+          </div>
+          <div class="project-hero__detail">
+            <dt data-i18n="projectDetail.year">Ano</dt>
+            <dd id="project-year"></dd>
+          </div>
+          <div class="project-hero__detail">
+            <dt data-i18n="projectDetail.location">Localização</dt>
+            <dd id="project-location"></dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ════ OVERVIEW ════════════════════════════ -->
+    <section class="project-overview container" aria-labelledby="overview-title">
+      <div class="project-overview__text" data-reveal>
+        <h2 id="overview-title" data-i18n="projectDetail.overviewTitle">Visão geral do projeto</h2>
+        <div id="project-overview" class="project-overview__body richtext"></div>
+      </div>
+      <aside class="project-overview__sidebar">
+        <div class="project-overview__stat">
+          <p class="project-overview__stat-value" id="project-stat-deliverables">—</p>
+          <p class="project-overview__stat-label" data-i18n="projectDetail.statDeliverables">Entregáveis</p>
+        </div>
+        <div class="project-overview__stat">
+          <p class="project-overview__stat-value" id="project-stat-weeks">—</p>
+          <p class="project-overview__stat-label" data-i18n="projectDetail.statWeeks">Semanas de projeto</p>
+        </div>
+      </aside>
+    </section>
+
+    <!-- ════ IMAGENS — GALERIA ════════════════════ -->
+    <section class="project-gallery" aria-label="Galeria do projeto" id="project-gallery">
+      <!-- Preenchido via JS -->
+    </section>
+
+    <!-- ════ PROCESSO ════════════════════════════ -->
+    <section class="project-process container" aria-labelledby="process-title" id="project-process-section">
+      <h2 id="process-title" data-i18n="projectDetail.processTitle">Processo criativo</h2>
+      <div class="project-process__stages" id="project-process"></div>
+    </section>
+
+    <!-- ════ RESULTADO ════════════════════════════ -->
+    <section class="project-result" aria-labelledby="result-title" id="project-result-section">
+      <div class="project-result__inner container" data-reveal>
+        <h2 id="result-title" data-i18n="projectDetail.resultTitle">Resultado</h2>
+        <div id="project-result" class="richtext"></div>
+      </div>
+    </section>
+
+    <!-- ════ PRÓXIMO / ANTERIOR ══════════════════ -->
+    <nav class="project-nav" aria-label="Navegar entre projetos">
+      <a href="#" class="project-nav__btn project-nav__btn--prev" id="nav-prev">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        <span>
+          <small data-i18n="projectDetail.prevProject">Projeto anterior</small>
+          <strong id="nav-prev-title">—</strong>
+        </span>
+      </a>
+      <a href="projetos.html" class="project-nav__all">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        <span data-i18n="projectDetail.allProjects">Todos os projetos</span>
+      </a>
+      <a href="#" class="project-nav__btn project-nav__btn--next" id="nav-next">
+        <span>
+          <small data-i18n="projectDetail.nextProject">Próximo projeto</small>
+          <strong id="nav-next-title">—</strong>
+        </span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </nav>
+
+    <!-- ════ CTA INLINE ══════════════════════════ -->
+    <section class="project-cta" aria-labelledby="project-cta-title">
+      <h2 id="project-cta-title" data-i18n="projectDetail.ctaTitle">Gostou do resultado?</h2>
+      <p data-i18n="projectDetail.ctaDesc">Vamos criar algo assim para a sua marca.</p>
+      <a href="contato.html" class="btn btn--primary btn--lg" data-i18n="projectDetail.ctaBtn">Iniciar projeto</a>
+    </section>
+
+  </main>
+
+  <!-- ════ FOOTER ══════════════════════════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer__inner container">
+      <div class="footer__brand">
+        <a href="/" class="footer__logo">Dani Braga Design</a>
+        <p class="footer__tagline" data-i18n="footer.tagline">Design que transforma experiências em marcas memoráveis.</p>
+      </div>
+      <nav class="footer__nav" aria-label="Links do footer">
+        <h3 class="footer__heading" data-i18n="footer.navTitle">Navegação</h3>
+        <ul role="list">
+          <li><a href="/"             data-i18n="nav.home">Início</a></li>
+          <li><a href="projetos.html" data-i18n="nav.projects">Projetos</a></li>
+          <li><a href="sobre.html"    data-i18n="nav.about">Sobre</a></li>
+          <li><a href="contato.html"  data-i18n="nav.contact">Contato</a></li>
+        </ul>
+      </nav>
+      <div class="footer__social">
+        <h3 class="footer__heading" data-i18n="footer.socialTitle">Redes Sociais</h3>
+        <ul class="footer__social-list" role="list">
+          <li><a href="https://instagram.com/danibraga.design" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          <li><a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+        </ul>
+      </div>
+      <div class="footer__legal">
+        <h3 class="footer__heading" data-i18n="footer.contactTitle">Contato</h3>
+        <p><a href="mailto:ola@danibraga.design">ola@danibraga.design</a></p>
+        <p class="footer__copy"><small data-i18n="footer.copyright">© 2025 Dani Braga Design. Todos os direitos reservados.</small></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp -->
+  <div class="whatsapp-btn" data-phone="5511999999999" data-message="Olá Dani! Vi seu projeto e adorei. Podemos conversar?" aria-label="Contato via WhatsApp">
+    <a href="#" class="whatsapp-btn__link" target="_blank" rel="noopener noreferrer" aria-label="Enviar mensagem no WhatsApp">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm.029 18.88a7.93 7.93 0 0 1-3.794-.965l-4.204 1.103 1.124-4.1A7.926 7.926 0 0 1 4.07 11.02C4.07 6.6 7.607 3.07 12.03 3.07c4.416 0 7.95 3.53 7.95 7.95 0 4.42-3.534 7.86-7.951 7.86z"/></svg>
+    </a>
+    <span class="whatsapp-btn__tooltip" role="tooltip">Fale comigo!</span>
+  </div>
+
+  <!-- Lightbox simples (sem biblioteca) -->
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Visualizar imagem" hidden>
+    <button class="lightbox__close" aria-label="Fechar">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <button class="lightbox__prev" aria-label="Imagem anterior">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <div class="lightbox__content">
+      <img id="lightbox-img" src="" alt="" />
+      <p id="lightbox-caption" class="lightbox__caption"></p>
+    </div>
+    <button class="lightbox__next" aria-label="Próxima imagem">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+    <div class="lightbox__backdrop"></div>
+  </div>
+
+  <script type="module" src="js/main.ts"></script>
+  <script type="module" src="js/pages/project-detail.ts"></script>
+</body>
+</html>

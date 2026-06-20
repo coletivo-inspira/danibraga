@@ -1,0 +1,189 @@
+/* ============================================
+   TYPOGRAPHY — Dani Braga Design
+   Cormorant Garamond + Inter
+   ============================================ */
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap');
+
+/* ─── BASE ──────────────────────────────────── */
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--leading-relaxed);
+  color: var(--color-text);
+  background-color: var(--color-cream-light);
+}
+
+/* ─── HIERARQUIA DE TÍTULOS ─────────────────── */
+
+.display {
+  font-family: var(--font-display);
+  font-size: clamp(var(--text-4xl), 8vw, var(--text-7xl));
+  font-weight: 300;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-dark);
+}
+
+h1, .h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(var(--text-3xl), 5vw, var(--text-5xl));
+  font-weight: 400;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-dark);
+}
+
+h2, .h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(var(--text-2xl), 3.5vw, var(--text-4xl));
+  font-weight: 400;
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-dark);
+}
+
+h3, .h3 {
+  font-family: var(--font-serif);
+  font-size: clamp(var(--text-xl), 2.5vw, var(--text-3xl));
+  font-weight: 400;
+  line-height: var(--leading-snug);
+  color: var(--color-dark-mid);
+}
+
+h4, .h4 {
+  font-family: var(--font-serif);
+  font-size: clamp(var(--text-lg), 2vw, var(--text-2xl));
+  font-weight: 500;
+  line-height: var(--leading-snug);
+  color: var(--color-dark-mid);
+}
+
+h5, .h5 {
+  font-family: var(--font-sans);
+  font-size: var(--text-md);
+  font-weight: 500;
+  line-height: var(--leading-normal);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text-light);
+}
+
+h6, .h6 {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  line-height: var(--leading-normal);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+/* ─── PARÁGRAFO ─────────────────────────────── */
+
+p {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--leading-relaxed);
+  color: var(--color-text);
+}
+
+.lead {
+  font-family: var(--font-sans);
+  font-size: var(--text-md);
+  font-weight: 300;
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-light);
+}
+
+/* ─── CLASSES UTILITÁRIAS DE TIPOGRAFIA ─────── */
+
+.text-serif {
+  font-family: var(--font-serif);
+}
+
+.text-italic {
+  font-style: italic;
+}
+
+.text-light {
+  font-weight: 300;
+}
+
+.text-normal {
+  font-weight: 400;
+}
+
+.text-medium {
+  font-weight: 500;
+}
+
+.text-semibold {
+  font-weight: 600;
+}
+
+/* Tamanhos */
+.text-xs    { font-size: var(--text-xs); }
+.text-sm    { font-size: var(--text-sm); }
+.text-base  { font-size: var(--text-base); }
+.text-md    { font-size: var(--text-md); }
+.text-lg    { font-size: var(--text-lg); }
+.text-xl    { font-size: var(--text-xl); }
+
+/* Cores */
+.text-dark      { color: var(--color-dark); }
+.text-muted     { color: var(--color-text-muted); }
+.text-gold      { color: var(--color-gold); }
+.text-olive     { color: var(--color-olive); }
+.text-inverse   { color: var(--color-text-inverse); }
+
+/* Alinhamentos */
+.text-center  { text-align: center; }
+.text-right   { text-align: right; }
+
+/* Labels & captions */
+.label {
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.caption {
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: 400;
+  line-height: var(--leading-normal);
+  color: var(--color-text-muted);
+}
+
+/* Ornamento editorial */
+.ornament {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 300;
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-gold);
+}
+
+/* Divisor em texto */
+.text-divider {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  color: var(--color-text-muted);
+}
+
+.text-divider::before,
+.text-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--color-border);
+}

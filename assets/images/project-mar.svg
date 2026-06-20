@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <rect width="800" height="500" fill="#2E4A5E"/>
+  <rect width="800" height="500" fill="url(#grain)" opacity="0.06"/>
+  <defs>
+    <pattern id="grain" x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse">
+      <rect width="2" height="2" fill="white"/>
+    </pattern>
+  </defs>
+  <text x="400" y="250" font-family="Georgia, serif" font-size="22" fill="rgba(255,255,255,0.85)" text-anchor="middle" dominant-baseline="middle">Pousada Mar</text>
+  <text x="400" y="284" font-family="serif" font-size="16" fill="rgba(255,255,255,0.55)" text-anchor="middle">Digital</text>
+</svg>

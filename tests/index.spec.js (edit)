@@ -1,0 +1,7 @@
+const { test, expect } = require('@playwright/test');
+
+test('hello world test', async ({ page }) => {
+    await page.goto('http://localhost:3000'); // Altere para a URL da sua aplicação
+    const title = await page.title();
+    expect(title).toBe('Título Esperado'); // Altere para o título esperado da sua aplicação
+});
