@@ -10,23 +10,19 @@ Site portfolio de design de interiores e branding para o mercado de hospitalidad
 > Por segurança, os navegadores **bloqueiam** essas APIs quando o arquivo é aberto diretamente (`file://`).  
 > Você precisa de um servidor HTTP local.
 
-### Opção 1 — Live Server (VS Code) ✅ Recomendado
+### Rodando o projeto localmente ✅ Recomendado
 
-1. Instale a extensão **Live Server** no VS Code  
-   (`Ctrl+P` → `ext install ritwickdey.liveserver`)
-2. Abra a pasta `d:\Coletivo Inspira\danibraga` no VS Code
-3. Clique em **"Go Live"** na barra de status (canto inferior direito)
-4. O navegador abrirá automaticamente em `http://localhost:5500`
-
-### Opção 2 — Python (sem extensões)
-
+1. Instale as dependências:
 ```bash
-# Na pasta raiz do projeto:
-cd "d:\Coletivo Inspira\danibraga"
-python -m http.server 5500
+npm install
 ```
 
-Acesse: [http://localhost:5500](http://localhost:5500)
+2. Inicie o servidor de desenvolvimento do Vite:
+```bash
+npm run dev
+```
+
+3. O navegador abrirá ou você poderá acessar em `http://localhost:5173`
 
 ---
 
@@ -46,8 +42,8 @@ dani/
 │   ├── components/       # Botões, nav, footer, modais…
 │   └── pages/            # Estilos específicos por página
 ├── js/
-│   ├── main.js           # Entry point (ES Module)
-│   ├── i18n.js           # Internacionalização
+│   ├── main.ts           # Entry point (ES Module)
+│   ├── i18n.ts           # Internacionalização
 │   ├── components/       # Nav, Gallery, AudioPlayer…
 │   └── pages/            # Controllers por página
 ├── i18n/

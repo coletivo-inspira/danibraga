@@ -13,16 +13,8 @@ import Forms        from './components/forms.js';
 import Animations   from './animations.js';
 
 /* ─── BASE PATH i18n ─────────────────────── */
-// import.meta.url aponta para js/main.js — um nível acima é a raiz do site.
-// Funciona corretamente tanto em http:// (Live Server) quanto em file://.
-window._i18nBasePath = (() => {
-  try {
-    const root = new URL('../', import.meta.url).href;
-    return root + 'i18n/';
-  } catch {
-    return 'i18n/';
-  }
-})();
+// Como todas as páginas HTML estão na raiz, um caminho relativo simples funciona.
+window._i18nBasePath = 'i18n/';
 
 /* ─── DOM READY ──────────────────────────── */
 
