@@ -134,7 +134,7 @@
 
 @media (max-width: 639px) {
   .audio-player {
-    bottom: calc(var(--space-5) + 60px); /* acima do whatsapp */
+    bottom: calc(var(--space-5) + 60px); /* acima do contato fixo */
     left: var(--space-4);
   }
 

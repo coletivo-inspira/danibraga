@@ -7,7 +7,7 @@ import I18n         from './i18n.js';
 import Nav          from './components/nav.js';
 import Gallery      from './components/gallery.js';
 import AudioPlayer  from './components/audio-player.js';
-import WhatsApp     from './components/whatsapp.js';
+import InstagramContact from './components/whatsapp.js';
 import Modal        from './components/modal.js';
 import Forms        from './components/forms.js';
 import Animations   from './animations.js';
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // 3. Componentes
   Modal.init();
   Forms.init();
-  WhatsApp.init();
+  InstagramContact.init();
   AudioPlayer.init();
 
   // 4. Galeria (somente páginas com .gallery)

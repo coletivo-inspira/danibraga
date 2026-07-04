@@ -482,12 +482,6 @@ function renderProject(project: Project) {
   populateResult(project, lang);
   populateNavigation(project, lang);
 
-  const whatsapp = document.querySelector('.whatsapp-btn') as HTMLElement | null;
-  if (whatsapp) {
-    whatsapp.dataset.message = lang === 'en'
-      ? `Hello! I loved the ${getText(project.title, lang)} project and would like to talk about something similar for my space.`
-      : `Olá! Adorei o projeto ${getText(project.title, lang)} e gostaria de conversar sobre algo parecido para o meu espaço.`;
-  }
 }
 
 function openLightbox(index: number, images: GalleryItem[]) {

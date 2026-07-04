@@ -1,46 +1,34 @@
 /**
- * whatsapp.js — Dani Braga Design
- * Botão flutuante WhatsApp — aparece após scroll, UTM params
+ * instagram-contact.js — Dani Braga Design
+ * Botão flutuante Instagram — aparece após scroll
  */
 
-const WhatsApp = (() => {
+const InstagramContact = (() => {
   const SCROLL_SHOW   = 400;
-  const DEFAULT_PHONE = '5511999999999'; // substituir no HTML via data-phone
+  const DEFAULT_URL = 'https://instagram.com/danibraga.design';
 
   let btn, link;
 
   /* ─── INIT ───────────────────────────────── */
 
   function init() {
-    btn = document.querySelector('.whatsapp-btn');
+    btn = document.querySelector('.instagram-float');
     if (!btn) return;
 
     link = btn.querySelector('a') || btn;
 
-    buildUTMLink();
+    buildLink();
     bindEvents();
     checkVisibility();
   }
 
-  /* ─── UTM ─────────────────────────────────── */
+  /* ─── LINK ────────────────────────────────── */
 
-  function buildUTMLink() {
-    const phone   = btn.dataset.phone   || DEFAULT_PHONE;
-    const message = btn.dataset.message || 'Olá! Vim pelo site e gostaria de saber mais sobre os serviços.';
-    const source  = getUTMSource();
-    const text    = encodeURIComponent(message);
-
-    const utmMsg  = `${message} (via ${source})`;
-    const encoded = encodeURIComponent(utmMsg);
-    const href    = `https://wa.me/${phone}?text=${encoded}`;
+  function buildLink() {
+    const href = btn.dataset.href || DEFAULT_URL;
 
     if (link && link.tagName === 'A') link.href = href;
     else if (btn.tagName === 'A') btn.href = href;
-  }
-
-  function getUTMSource() {
-    const params = new URLSearchParams(window.location.search);
-    return params.get('utm_source') || window.location.hostname;
   }
 
   /* ─── VISIBILIDADE ───────────────────────── */
@@ -67,4 +55,4 @@ const WhatsApp = (() => {
   return { init };
 })();
 
-export default WhatsApp;
+export default InstagramContact;

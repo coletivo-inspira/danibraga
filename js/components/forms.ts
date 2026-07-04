@@ -94,7 +94,7 @@ const Forms = (() => {
       if (res.ok) {
         showSuccess(form);
       } else {
-        showError(form, 'Erro ao enviar. Tente novamente ou use o WhatsApp.');
+        showError(form, 'Erro ao enviar. Tente novamente ou me chame no Instagram.');
       }
     } catch {
       showError(form, 'Sem conexão. Tente novamente em breve.');

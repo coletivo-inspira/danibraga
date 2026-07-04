@@ -205,16 +205,16 @@
   filter: grayscale(40%) contrast(1.05);
 }
 
-/* ── WHATSAPP CTA ────────────────────────────── */
+/* ── INSTAGRAM CTA ───────────────────────────── */
 
-.contact-whatsapp-cta {
+.contact-instagram-cta {
   padding: var(--space-16) var(--space-6);
   background-color: var(--color-cream-light);
   text-align: center;
   border-top: 1px solid var(--color-border);
 }
 
-.contact-whatsapp-cta h3 {
+.contact-instagram-cta h3 {
   font-family: var(--font-display);
   font-size: var(--text-2xl);
   font-weight: 300;
@@ -222,7 +222,7 @@
   margin-bottom: var(--space-3);
 }
 
-.contact-whatsapp-cta p {
+.contact-instagram-cta p {
   color: var(--color-text-light);
   font-size: var(--text-sm);
   margin-bottom: var(--space-6);

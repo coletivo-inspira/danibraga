@@ -36,7 +36,7 @@
     "ctaTitle": "Vamos criar o seu próximo espaço",
     "ctaDesc": "Conte sobre o seu projeto — hospitalidade ou residencial — e descubra como o design de interiores certo o transforma em experiência.",
     "ctaBtn": "Iniciar Projeto",
-    "ctaBtnWhatsapp": "WhatsApp"
+    "ctaBtnInstagram": "Instagram"
   },
   "about": {
     "heroEyebrow": "Sobre o Estúdio",
@@ -106,8 +106,9 @@
     "heroTitle": "Inicie seu projeto",
     "heroDesc": "Respondo todas as mensagens em até 24 horas nos dias úteis.",
     "infoTitle": "Formas de contato",
-    "infoDesc": "Escolha o canal de sua preferência. O estúdio está disponível para novos projetos e parcerias.",
+    "infoDesc": "Escolha o canal de sua preferência. O estúdio responde por e-mail e Instagram.",
     "emailLabel": "E-mail",
+    "instagramLabel": "Instagram",
     "locationLabel": "Localização",
     "locationValue": "Bonito, MS — Brasil",
     "hoursTitle": "Horário de Atendimento",
@@ -130,18 +131,12 @@
     "serviceResidential": "Residencial",
     "serviceConsulting": "Consultoria de interiores",
     "serviceOther": "Outro",
-    "fieldBudget": "Investimento previsto",
-    "fieldBudgetDefault": "Faixa de investimento (opcional)",
-    "budget1": "Até R$ 20.000",
-    "budget2": "R$ 20.000 – R$ 50.000",
-    "budget3": "R$ 50.000 – R$ 100.000",
-    "budget4": "Acima de R$ 100.000",
     "fieldMessage": "Mensagem",
     "fieldMessagePlaceholder": "Conte sobre o seu espaço, o que você imagina para ele e o que busca com este projeto...",
     "formSubmit": "Enviar mensagem",
     "formSending": "Enviando...",
     "formSuccess": "Mensagem enviada! Entrarei em contato em breve.",
-    "formError": "Algo deu errado. Tente novamente ou me chame no WhatsApp."
+    "formError": "Algo deu errado. Tente novamente ou me chame no Instagram."
   },
   "process": {
     "step1Title": "Imersão",
@@ -183,10 +178,7 @@
     "openGallery": "Abrir galeria",
     "loading": "Carregando..."
   },
-  "whatsapp": {
-    "defaultMessage": "Olá, Dani! Encontrei seu estúdio e adoraria conversar sobre um projeto de interiores.",
-    "homeMessage": "Olá! Vi seu portfólio e quero saber mais sobre seus projetos de design de interiores.",
-    "projectMessage": "Olá, Dani! Adorei o projeto {project} e quero conversar sobre algo parecido para o meu espaço.",
-    "contactMessage": "Olá! Entrei em contato pelo site e gostaria de conversar sobre um projeto de interiores."
+  "instagram": {
+    "defaultLabel": "Fale no Instagram"
   }
 }
