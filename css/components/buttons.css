@@ -108,7 +108,8 @@
 }
 
 /* Texto sem borda */
-.btn--text {
+.btn--text,
+.btn--text-link {
   background: transparent;
   border-color: transparent;
   color: var(--color-gold-dark);
@@ -117,6 +118,11 @@
   letter-spacing: var(--tracking-normal);
   text-transform: none;
   font-size: var(--text-sm);
+}
+
+.btn--text:hover,
+.btn--text-link:hover {
+  color: var(--color-olive-dark);
 }
 
 .btn--text::after {

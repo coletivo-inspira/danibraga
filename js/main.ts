@@ -46,6 +46,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // 8. Lazy load imagens nativas
   enableLazyImages();
 
+  // 9. Filtros do portfólio (somente projetos.html)
+  bindPortfolioFilters();
+
   console.log('[Dani Braga Design] Site iniciado.');
 });
 
@@ -83,6 +86,31 @@ function bindSmoothScroll() {
 
       // Atualiza URL sem reload
       history.pushState(null, '', `#${id}`);
+    });
+  });
+}
+
+/* ─── FILTROS DO PORTFÓLIO ──────────────────── */
+
+function bindPortfolioFilters() {
+  const buttons = document.querySelectorAll('.filter-btn[data-filter]');
+  const items = document.querySelectorAll('.portfolio-item');
+  if (!buttons.length || !items.length) return;
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter;
+
+      buttons.forEach(b => {
+        const active = b === btn;
+        b.classList.toggle('is-active', active);
+        b.setAttribute('aria-pressed', String(active));
+      });
+
+      items.forEach(item => {
+        const show = filter === 'all' || item.dataset.category === filter;
+        item.classList.toggle('is-hidden', !show);
+      });
     });
   });
 }

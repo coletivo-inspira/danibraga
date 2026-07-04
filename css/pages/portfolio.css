@@ -70,9 +70,10 @@
 /* ── GRID DE PROJETOS ──────────────────────── */
 
 .portfolio-grid {
-  padding: var(--space-16) var(--space-6);
-  max-width: var(--container-xl);
-  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: var(--space-8);
+  padding: var(--space-16) 0;
 }
 
 .portfolio-grid__inner {
@@ -124,6 +125,7 @@
 }
 
 @media (max-width: 640px) {
+  .portfolio-grid,
   .portfolio-grid__inner {
     grid-template-columns: 1fr;
   }
