@@ -1,8 +1,0 @@
-module.exports = {
-  use: {
-    browserName: 'chromium',
-    headless: true,
-  },
-  reporter: [['list'], ['json', { outputFile: 'test-results.json' }]],
-  testDir: 'tests',
-};
