@@ -37,39 +37,17 @@ document.addEventListener('DOMContentLoaded', () => {
   // 5. Animações de scroll
   Animations.init();
 
-  // 6. Seletor de idioma
-  bindLangSwitch();
-
-  // 7. Smooth scroll para âncoras internas
+  // 6. Smooth scroll para âncoras internas
   bindSmoothScroll();
 
-  // 8. Lazy load imagens nativas
+  // 7. Lazy load imagens nativas
   enableLazyImages();
 
-  // 9. Filtros do portfólio (somente projetos.html)
+  // 8. Filtros do portfólio (somente projetos.html)
   bindPortfolioFilters();
 
   console.log('[Dani Braga Design] Site iniciado.');
 });
-
-/* ─── LANGUAGE SWITCH ─────────────────────── */
-
-function bindLangSwitch() {
-  document.querySelectorAll('[data-lang-switch]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const lang = btn.dataset.langSwitch;
-      I18n.setLang(lang);
-
-      // Atualiza estado ativo dos botões
-      document.querySelectorAll('[data-lang-switch]').forEach(b => {
-        b.classList.toggle('is-active', b.dataset.langSwitch === lang);
-      });
-
-      // Atualiza lang no <html>
-      document.documentElement.lang = lang;
-    });
-  });
-}
 
 /* ─── SMOOTH SCROLL ───────────────────────── */
 
@@ -95,11 +73,13 @@ function bindSmoothScroll() {
 function bindPortfolioFilters() {
   const buttons = document.querySelectorAll('.filter-btn[data-filter]');
   const items = document.querySelectorAll('.portfolio-item');
+  const emptyState = document.getElementById('portfolio-empty');
   if (!buttons.length || !items.length) return;
 
   buttons.forEach(btn => {
     btn.addEventListener('click', () => {
       const filter = btn.dataset.filter;
+      let visibleCount = 0;
 
       buttons.forEach(b => {
         const active = b === btn;
@@ -110,7 +90,12 @@ function bindPortfolioFilters() {
       items.forEach(item => {
         const show = filter === 'all' || item.dataset.category === filter;
         item.classList.toggle('is-hidden', !show);
+        if (show) visibleCount += 1;
       });
+
+      if (emptyState) {
+        emptyState.hidden = visibleCount !== 0;
+      }
     });
   });
 }

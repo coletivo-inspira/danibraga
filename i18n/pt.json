@@ -126,7 +126,7 @@
     "fieldService": "Tipo de projeto",
     "fieldServiceDefault": "Selecione um tipo de projeto",
     "serviceHospitality": "Hospitalidade (resort, pousada, hotel)",
-    "serviceAtrativo": "Atrativo turístico",
+    "serviceCommercial": "Comercial",
     "serviceResidential": "Residencial",
     "serviceConsulting": "Consultoria de interiores",
     "serviceOther": "Outro",

@@ -1,265 +1,365 @@
-﻿/**
- * project-detail.js
- * LÃª ?slug= da URL, carrega dados do projeto e preenche o DOM.
- * TambÃ©m controla lightbox e navegaÃ§Ã£o prev/next.
- */
+type Lang = 'pt' | 'en';
 
-/* â”€â”€â”€ DATA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+type LocalizedText = {
+  pt: string;
+  en: string;
+};
 
-const PROJECTS = [
+type GalleryItem = {
+  src: string;
+  alt: LocalizedText;
+  layout: 'wide' | 'narrow' | 'half' | 'third' | 'full';
+};
+
+type ProcessStage = {
+  number: string;
+  title: LocalizedText;
+  text: LocalizedText;
+};
+
+type Project = {
+  slug: string;
+  category: LocalizedText;
+  title: LocalizedText;
+  tagline: LocalizedText;
+  client: LocalizedText;
+  scope: LocalizedText;
+  year: string;
+  location: LocalizedText;
+  cover: string;
+  gallery: GalleryItem[];
+  overview: LocalizedText;
+  statDeliverables: string;
+  statWeeks: string;
+  process: ProcessStage[];
+  result: LocalizedText;
+};
+
+const PROJECTS: Project[] = [
   {
-    slug: 'hotel-aurora',
-    category: 'Branding',
-    title: 'Hotel Aurora',
-    tagline: 'Identidade que captura a magia do entardecer em Santa Catarina.',
-    client: 'Hotel Aurora',
-    scope: 'Branding Completo',
+    slug: 'eco-resort',
+    category: { pt: 'Resort', en: 'Resort' },
+    title: { pt: 'Eco Resort Zagaia', en: 'Zagaia Eco Resort' },
+    tagline: {
+      pt: 'Area externa e suites pensadas para ampliar conforto, privacidade e conexao com a natureza em Bonito/MS.',
+      en: 'Outdoor areas and suites designed to expand comfort, privacy, and connection with nature in Bonito/MS.',
+    },
+    client: { pt: 'Zagaia Eco Resort', en: 'Zagaia Eco Resort' },
+    scope: { pt: 'Area externa e suites', en: 'Outdoor areas and suites' },
     year: '2024',
-    location: 'FlorianÃ³polis, SC',
-    cover: 'assets/images/project-aurora.svg',
+    location: { pt: 'Bonito, MS', en: 'Bonito, MS - Brazil' },
+    cover: 'assets/images/projects/eco-resort/cover.jpg',
     gallery: [
-      { src: 'assets/images/aurora-01.svg', alt: 'Logotipo Hotel Aurora', layout: 'wide' },
-      { src: 'assets/images/aurora-02.svg', alt: 'Papelaria corporativa', layout: 'narrow' },
-      { src: 'assets/images/aurora-03.svg', alt: 'Guia de cores e tipografia', layout: 'half' },
-      { src: 'assets/images/aurora-04.svg', alt: 'SinalizaÃ§Ã£o interna', layout: 'half' },
-      { src: 'assets/images/aurora-05.svg', alt: 'CardÃ¡pio do restaurante', layout: 'third' },
-      { src: 'assets/images/aurora-06.svg', alt: 'Amenities e embalagens', layout: 'third' },
-      { src: 'assets/images/aurora-07.svg', alt: 'Mockup digital', layout: 'third' },
+      { src: 'assets/images/projects/eco-resort/01.jpg', alt: { pt: 'Area externa do Eco Resort integrada a paisagem', en: 'Eco Resort outdoor area integrated with the landscape' }, layout: 'wide' },
+      { src: 'assets/images/projects/eco-resort/02.jpg', alt: { pt: 'Vista superior do ambiente com leitura de implantacao', en: 'Top view showing the spatial layout' }, layout: 'narrow' },
+      { src: 'assets/images/projects/eco-resort/03.jpg', alt: { pt: 'Estudo do ambiente no periodo noturno', en: 'Night-time study of the environment' }, layout: 'half' },
+      { src: 'assets/images/projects/eco-resort/04.jpg', alt: { pt: 'Varanda funcional sem jacuzzi', en: 'Simple functional veranda without jacuzzi' }, layout: 'half' },
+      { src: 'assets/images/projects/eco-resort/05.jpg', alt: { pt: 'Varanda completa com jacuzzi, ducha e pergolado', en: 'Complete veranda with jacuzzi, shower and pergola' }, layout: 'wide' },
+      { src: 'assets/images/projects/eco-resort/06.jpg', alt: { pt: 'Suite com foco em leveza e acolhimento', en: 'Suite focused on lightness and comfort' }, layout: 'half' },
+      { src: 'assets/images/projects/eco-resort/07.jpg', alt: { pt: 'Detalhe da suite com solucoes para bem-estar', en: 'Suite detail with solutions for guest well-being' }, layout: 'half' },
     ],
-    overview: `<p>O Hotel Aurora precisava de uma identidade que traduzisse a experiÃªncia Ãºnica de assistir ao pÃ´r do sol da costa catarinense. O briefing pedia algo que fosse simultaneamente sofisticado e acolhedor â€” uma marca que os hÃ³spedes lembrassem muito depois do check-out.</p>
-<p>Desenvolvemos um sistema visual completo partindo da paleta dos tons dourados e rosados do cÃ©u ao entardecer, combinada com tipografia serifada de presenÃ§a editorial e elementos grÃ¡ficos inspirados nas ondas do litoral.</p>`,
-    statDeliverables: '28',
-    statWeeks: '10',
-    process: [
-      { number: '01', title: 'ImersÃ£o', text: 'Visitamos o hotel, conversamos com a equipe e passamos uma tarde inteira observando os hÃ³spedes e o ambiente.' },
-      { number: '02', title: 'EstratÃ©gia', text: 'Definimos posicionamento, arquÃ©tipos de marca, paleta cromÃ¡tica estratÃ©gica e direÃ§Ã£o tipogrÃ¡fica.' },
-      { number: '03', title: 'CriaÃ§Ã£o', text: 'Desenvolvimento do logotipo, sÃ­mbolo, sistema grÃ¡fico e todas as aplicaÃ§Ãµes da identidade.' },
-      { number: '04', title: 'Entrega', text: '28 entregÃ¡veis finais: manual de marca, arquivos vetoriais, mockups e guia de aplicaÃ§Ã£o digital.' },
-    ],
-    result: `<p>A nova identidade do Hotel Aurora foi lanÃ§ada com uma campanha de reposicionamento que resultou em aumento significativo nas reservas diretas e cobertura espontÃ¢nea em publicaÃ§Ãµes de turismo de luxo no Brasil e no exterior.</p>`,
-  },
-  {
-    slug: 'restaurante-noite',
-    category: 'Editorial',
-    title: 'Restaurante Noite',
-    tagline: 'Um sistema visual que transforma cada refeiÃ§Ã£o em uma memÃ³ria.',
-    client: 'Restaurante Noite',
-    scope: 'Materiais Impressos',
-    year: '2023',
-    location: 'SÃ£o Paulo, SP',
-    cover: 'assets/images/project-noite.svg',
-    gallery: [
-      { src: 'assets/images/noite-01.svg', alt: 'CardÃ¡pio principal', layout: 'wide' },
-      { src: 'assets/images/noite-02.svg', alt: 'Detalhe tipogrÃ¡fico', layout: 'narrow' },
-      { src: 'assets/images/noite-03.svg', alt: 'Carta de vinhos', layout: 'half' },
-      { src: 'assets/images/noite-04.svg', alt: 'Menu degustaÃ§Ã£o', layout: 'half' },
-      { src: 'assets/images/noite-05.svg', alt: 'Papel de parede da marca', layout: 'full' },
-    ],
-    overview: `<p>O Restaurante Noite, premiado fine dining paulistano, precisava de um sistema de materiais impressos que estivesse Ã  altura da experiÃªncia gastronÃ´mica que oferece. O desafio: criar peÃ§as editoriais que fossem funcionais para o serviÃ§o e belas o suficiente para serem guardadas pelos hÃ³spedes como recordaÃ§Ã£o.</p>
-<p>O resultado Ã© um sistema editorial em preto, creme e dourado, com tipografia clÃ¡ssica e fotografias de produto trabalhadas em duotone.</p>`,
-    statDeliverables: '16',
+    overview: {
+      pt: '<p>Area externa desenvolvida para o Zagaia Eco Resort em Bonito/MS. Os ambientes foram concebidos de forma funcional e integrada, priorizando a privacidade dos usuarios e o equilibrio com a natureza.</p><p>O projeto se desdobra entre estudos de iluminacao para os periodos diurno e noturno, varandas com diferentes niveis de sofisticacao e suites pensadas para proporcionar conforto, praticidade e bem-estar durante os dias de descanso.</p>',
+      en: '<p>Outdoor areas designed for Zagaia Eco Resort in Bonito/MS. The spaces were conceived as functional and integrated environments, prioritising guest privacy and balance with nature.</p><p>The project unfolds through lighting studies for day and night use, verandas with different levels of sophistication, and suites planned to deliver comfort, practicality, and well-being throughout the stay.</p>',
+    },
+    statDeliverables: '4',
     statWeeks: '7',
     process: [
-      { number: '01', title: 'Conceito', text: 'A partir do posicionamento "gastronomia como ritual", construÃ­mos uma direÃ§Ã£o editorial que mistura o clÃ¡ssico com o contemporÃ¢neo.' },
-      { number: '02', title: 'Grid editorial', text: 'Desenvolvimento de sistema tipogrÃ¡fico hierÃ¡rquico e grid flexÃ­vel para todos os formatos.' },
-      { number: '03', title: 'ProduÃ§Ã£o', text: 'DireÃ§Ã£o de arte das fotografias de pratos, seleÃ§Ã£o de papÃ©is especiais e supervisÃ£o de impressÃ£o.' },
-      { number: '04', title: 'Entrega', text: 'CardÃ¡pios, carta de vinhos, menu degustaÃ§Ã£o, materiais de mesa e papelaria de serviÃ§o.' },
+      { number: '01', title: { pt: 'Leitura do lugar', en: 'Reading the site' }, text: { pt: 'Mapeamento das relacoes entre hospedagem, paisagem e experiencia de uso na area externa do resort.', en: 'Mapping the relationship between hospitality, landscape, and guest experience across the resort outdoor areas.' } },
+      { number: '02', title: { pt: 'Estudo de conforto', en: 'Comfort study' }, text: { pt: 'Projecoes em vista superior e estudos de iluminacao para garantir bem-estar nos periodos diurno e noturno.', en: 'Top-view projections and lighting studies to ensure comfort during both daytime and nighttime use.' } },
+      { number: '03', title: { pt: 'Desenho dos ambientes', en: 'Environmental design' }, text: { pt: 'Definicao de varandas, jacuzzis, pergolados e percursos com foco em privacidade e relaxamento.', en: 'Definition of verandas, jacuzzis, pergolas, and circulation with a focus on privacy and relaxation.' } },
+      { number: '04', title: { pt: 'Ajuste fino das suites', en: 'Suite refinement' }, text: { pt: 'Solucoes internas voltadas a leveza, praticidade e uma experiencia acolhedora de hospedagem.', en: 'Interior solutions aimed at lightness, practicality, and a welcoming hospitality experience.' } },
     ],
-    result: `<p>Os cardÃ¡pios do Restaurante Noite viraram objeto de desejo â€” hÃ³spedes pedem permissÃ£o para levÃ¡-los para casa. As peÃ§as foram publicadas em trÃªs revistas de design editorial e tornaram-se referÃªncia em cursos de design grÃ¡fico.</p>`,
+    result: {
+      pt: '<p>O conjunto fortalece a experiencia do Eco Resort ao conectar descanso, paisagem e conforto em diferentes escalas do empreendimento. O resultado e um ambiente de alto padrao que valoriza a permanencia e a relacao do hospede com o entorno.</p>',
+      en: '<p>The project strengthens the resort experience by connecting rest, landscape, and comfort across different scales of the development. The result is a high-standard environment that values permanence and the guest relationship with the surroundings.</p>',
+    },
   },
   {
-    slug: 'spa-essencia',
-    category: 'Identidade Visual',
-    title: 'Spa EssÃªncia',
-    tagline: 'Marca sensorial para uma experiÃªncia de bem-estar transformadora.',
-    client: 'Spa EssÃªncia',
-    scope: 'Identidade Visual',
+    slug: 'estrela-do-formoso',
+    category: { pt: 'Atrativo Turistico', en: 'Tourist Attraction' },
+    title: { pt: 'Estrela do Formoso', en: 'Estrela do Formoso' },
+    tagline: {
+      pt: 'Bangalos privativos e bar externo para um atrativo turistico que queria elevar conforto, identidade e conexao com a natureza.',
+      en: 'Private bungalows and an outdoor bar for a tourist attraction seeking to elevate comfort, identity, and connection with nature.',
+    },
+    client: { pt: 'Estrela do Formoso', en: 'Estrela do Formoso' },
+    scope: { pt: 'Bangalos e bar externo', en: 'Bungalows and outdoor bar' },
     year: '2024',
-    location: 'Gramado, RS',
-    cover: 'assets/images/project-essencia.svg',
+    location: { pt: 'Bonito, MS', en: 'Bonito, MS - Brazil' },
+    cover: 'assets/images/projects/estrela-do-formoso/cover.jpg',
     gallery: [
-      { src: 'assets/images/essencia-01.svg', alt: 'Logotipo Spa EssÃªncia', layout: 'half' },
-      { src: 'assets/images/essencia-02.svg', alt: 'Paleta de cores e materiais', layout: 'half' },
-      { src: 'assets/images/essencia-03.svg', alt: 'Embalagens de produtos', layout: 'wide' },
-      { src: 'assets/images/essencia-04.svg', alt: 'AplicaÃ§Ã£o em roupÃµes', layout: 'narrow' },
-      { src: 'assets/images/essencia-05.svg', alt: 'Aromaterapia e frascos', layout: 'third' },
-      { src: 'assets/images/essencia-06.svg', alt: 'SinalizaÃ§Ã£o do spa', layout: 'third' },
-      { src: 'assets/images/essencia-07.svg', alt: 'Kit boas-vindas', layout: 'third' },
+      { src: 'assets/images/projects/estrela-do-formoso/01.jpg', alt: { pt: 'Visao geral do atrativo integrada a natureza', en: 'General view of the attraction integrated with nature' }, layout: 'wide' },
+      { src: 'assets/images/projects/estrela-do-formoso/02.jpg', alt: { pt: 'Bangalo privativo com foco em exclusividade', en: 'Private bungalow focused on exclusivity' }, layout: 'half' },
+      { src: 'assets/images/projects/estrela-do-formoso/03.jpg', alt: { pt: 'Outro modulo de bangalo com leitura da implantacao', en: 'Another bungalow module showing the site layout' }, layout: 'half' },
+      { src: 'assets/images/projects/estrela-do-formoso/04.jpg', alt: { pt: 'Bar externo acolhedor conectado aos bangalos', en: 'Welcoming outdoor bar connected to the bungalows' }, layout: 'full' },
     ],
-    overview: `<p>O Spa EssÃªncia nasce da filosofia de que bem-estar profundo comeÃ§a pelos sentidos. A marca precisava ser uma extensÃ£o dessa filosofia â€” um sistema visual que ativasse a sensaÃ§Ã£o de calma e cuidado antes mesmo da primeira sessÃ£o.</p>
-<p>Criamos uma identidade minimalista em tons terrosos, com logotipo baseado em elementos botÃ¢nicos e tipografia que equilibra delicadeza e presenÃ§a.</p>`,
-    statDeliverables: '22',
-    statWeeks: '8',
+    overview: {
+      pt: '<p>Projeto criado para o atrativo turistico em Bonito/MS. Os ambientes foram desenvolvidos para integrar natureza, conforto e sofisticacao, proporcionando uma experiencia exclusiva e acolhedora ao usuario.</p><p>O escopo reuniu bangalos privativos e um bar em area externa. A proposta buscou fortalecer a identidade do empreendimento, associando sua marca a momentos de qualidade, personalidade e permanencia.</p>',
+      en: '<p>This project was created for a tourist attraction in Bonito/MS. The environments were developed to integrate nature, comfort, and sophistication, delivering an exclusive and welcoming experience for visitors.</p><p>The scope combined private bungalows and an outdoor bar. The proposal aimed to strengthen the identity of the attraction, linking its brand to moments of quality, personality, and memorable stay.</p>',
+    },
+    statDeliverables: '2',
+    statWeeks: '4',
     process: [
-      { number: '01', title: 'Descoberta sensorial', text: 'Workshop imersivo com a fundadora para mapear os valores emocionais da marca e a experiÃªncia que ela quer proporcionar.' },
-      { number: '02', title: 'DireÃ§Ã£o criativa', text: 'ConstruÃ§Ã£o do painel de referÃªncias e definiÃ§Ã£o da linguagem visual: minimalismo orgÃ¢nico com textura e profundidade.' },
-      { number: '03', title: 'Identidade', text: 'Desenvolvimento do logotipo, sÃ­mbolo botÃ¢nico, paleta, tipografia e sistema de aplicaÃ§Ãµes.' },
-      { number: '04', title: 'Produto', text: 'ExtensÃ£o da identidade para embalagens, textiles, sinalizaÃ§Ã£o e kit de boas-vindas.' },
+      { number: '01', title: { pt: 'Experiencia do visitante', en: 'Visitor experience' }, text: { pt: 'Analise dos percursos, momentos de pausa e expectativa de privacidade no atrativo.', en: 'Analysis of circulation, pause moments, and privacy expectations within the attraction.' } },
+      { number: '02', title: { pt: 'Setorizacao', en: 'Spatial zoning' }, text: { pt: 'Desenho dos bangalos para garantir singularidade, conforto e integracao harmoniosa com o entorno.', en: 'Bungalow design to ensure singularity, comfort, and harmonious integration with the surroundings.' } },
+      { number: '03', title: { pt: 'Atmosfera do encontro', en: 'Atmosphere of gathering' }, text: { pt: 'Criacao do bar externo como ponto de conexao entre os modulos e a identidade do empreendimento.', en: 'Design of the outdoor bar as a point of connection between the modules and the enterprise identity.' } },
+      { number: '04', title: { pt: 'Coerencia do conjunto', en: 'Overall coherence' }, text: { pt: 'Ajustes para consolidar uma linguagem acolhedora e conectada a natureza em todos os ambientes.', en: 'Refinements to consolidate a welcoming language connected to nature across all spaces.' } },
     ],
-    result: `<p>Dois meses apÃ³s o lanÃ§amento da nova identidade, o Spa EssÃªncia alcanÃ§ou 100% de ocupaÃ§Ã£o nos fins de semana e foi eleito um dos 10 spas mais fotogÃªnicos do Brasil por um portal especializado em bem-estar e viagem.</p>`,
+    result: {
+      pt: '<p>O projeto amplia o valor percebido do atrativo ao oferecer ambientes mais reservados e memoraveis. A experiencia final combina natureza, conforto e identidade em uma linguagem arquitetonica coerente.</p>',
+      en: '<p>The project increases the perceived value of the attraction by offering more private and memorable spaces. The final experience combines nature, comfort, and identity in a coherent architectural language.</p>',
+    },
   },
   {
-    slug: 'pousada-mar',
-    category: 'Digital',
-    title: 'Pousada Mar',
-    tagline: 'PresenÃ§a digital que converte admiradores em hÃ³spedes.',
-    client: 'Pousada Mar',
-    scope: 'PresenÃ§a Digital',
-    year: '2023',
-    location: 'Trancoso, BA',
-    cover: 'assets/images/project-mar.svg',
+    slug: 'pousada-olho-dagua',
+    category: { pt: 'Pousada', en: 'Guesthouse' },
+    title: { pt: "Pousada Olho D'Agua", en: "Pousada Olho D'Agua" },
+    tagline: {
+      pt: 'Recepcao, fachada e lazer interno desenhados com pedra, madeira e palha para criar uma atmosfera de descanso em Bonito.',
+      en: 'Reception, facade, and indoor leisure areas designed with stone, wood, and straw to create a restful atmosphere in Bonito.',
+    },
+    client: { pt: "Pousada Olho D'Agua", en: "Pousada Olho D'Agua" },
+    scope: { pt: 'Recepcao, fachada e area de lazer', en: 'Reception, facade, and leisure area' },
+    year: '2024',
+    location: { pt: 'Bonito, MS', en: 'Bonito, MS - Brazil' },
+    cover: 'assets/images/projects/pousada-olho-dagua/cover.jpg',
     gallery: [
-      { src: 'assets/images/mar-01.svg', alt: 'Feed do Instagram', layout: 'wide' },
-      { src: 'assets/images/mar-02.svg', alt: 'Stories templates', layout: 'narrow' },
-      { src: 'assets/images/mar-03.svg', alt: 'Guia de marca digital', layout: 'half' },
-      { src: 'assets/images/mar-04.svg', alt: 'Destaque do Instagram', layout: 'half' },
+      { src: 'assets/images/projects/pousada-olho-dagua/01.jpg', alt: { pt: 'Vista da pousada com materiais naturais em destaque', en: 'View of the guesthouse highlighting natural materials' }, layout: 'wide' },
+      { src: 'assets/images/projects/pousada-olho-dagua/02.jpg', alt: { pt: 'Entrada e recepcao integradas a paisagem', en: 'Entrance and reception integrated with the landscape' }, layout: 'half' },
+      { src: 'assets/images/projects/pousada-olho-dagua/03.jpg', alt: { pt: 'Area interna de lazer com identidade unificada', en: 'Indoor leisure area with unified identity' }, layout: 'half' },
+      { src: 'assets/images/projects/pousada-olho-dagua/04.jpg', alt: { pt: 'Detalhe de bar e convivencia com linguagem acolhedora', en: 'Bar and lounge detail with a welcoming language' }, layout: 'full' },
     ],
-    overview: `<p>A Pousada Mar, um refÃºgio escondido em Trancoso, tinha a beleza mas nÃ£o tinha a presenÃ§a digital Ã  altura. As fotos eram boas, mas o visual das redes nÃ£o traduzia o charme e a exclusividade da experiÃªncia.</p>
-<p>Desenvolvemos um guia de marca digital completo â€” templates de feed e stories, direÃ§Ã£o de fotografia, estratÃ©gia de conteÃºdo e identidade visual adaptada para o universo digital.</p>`,
-    statDeliverables: '45',
+    overview: {
+      pt: '<p>Projeto desenvolvido para pousada em Bonito, valorizando o uso de materias-primas naturais como pedra, madeira e palha. A proposta cria uma atmosfera acolhedora e relaxante, convidando o usuario a uma experiencia sensorial conectada a natureza e ao descanso.</p><p>O trabalho se estende da entrada e area de recepcao ao bar e area de lazer interna, mantendo a mesma identidade espacial e reforcando a coerencia do empreendimento.</p>',
+      en: '<p>This project was developed for a guesthouse in Bonito, highlighting the use of natural raw materials such as stone, wood, and straw. The proposal creates a welcoming and relaxing atmosphere, inviting the user into a sensory experience connected to nature and rest.</p><p>The work extends from the entrance and reception area to the bar and indoor leisure spaces, keeping the same spatial identity and reinforcing the coherence of the development.</p>',
+    },
+    statDeliverables: '3',
+    statWeeks: '4',
+    process: [
+      { number: '01', title: { pt: 'Materialidade', en: 'Materiality' }, text: { pt: 'Definicao de uma base natural com pedra, madeira e palha para traduzir o clima da pousada.', en: 'Definition of a natural palette of stone, wood, and straw to convey the mood of the guesthouse.' } },
+      { number: '02', title: { pt: 'Chegada do hospede', en: 'Guest arrival' }, text: { pt: 'Desenho da fachada e da recepcao para comunicar desaceleracao e clima de ferias desde a chegada.', en: 'Design of the facade and reception to communicate deceleration and a holiday atmosphere from the moment of arrival.' } },
+      { number: '03', title: { pt: 'Areas de convivencia', en: 'Shared areas' }, text: { pt: 'Aplicacao da mesma identidade no bar e na area interna de lazer, garantindo continuidade de experiencia.', en: 'Application of the same identity to the bar and indoor leisure area, ensuring continuity of experience.' } },
+      { number: '04', title: { pt: 'Unidade visual', en: 'Visual unity' }, text: { pt: 'Ajustes finais para consolidar personalidade, coerencia e leitura integrada do empreendimento.', en: 'Final refinements to consolidate personality, coherence, and an integrated reading of the development.' } },
+    ],
+    result: {
+      pt: '<p>O resultado e uma pousada com linguagem espacial consistente desde o primeiro contato. A arquitetura de interiores reforca descanso, pertencimento e uma relacao sensorial mais forte com a paisagem de Bonito.</p>',
+      en: '<p>The result is a guesthouse with a consistent spatial language from the very first contact. The interior architecture reinforces rest, belonging, and a stronger sensory relationship with the landscape of Bonito.</p>',
+    },
+  },
+  {
+    slug: 'chales',
+    category: { pt: 'Residencial', en: 'Residential' },
+    title: { pt: 'Chales', en: 'Chalets' },
+    tagline: {
+      pt: 'Casa de temporada em Bonito com chales individuais pensados para conforto, privacidade e imersao na natureza.',
+      en: 'Holiday home in Bonito with individual chalets designed for comfort, privacy, and immersion in nature.',
+    },
+    client: { pt: 'Hospedagem de temporada', en: 'Seasonal hospitality property' },
+    scope: { pt: 'Chales individuais', en: 'Individual chalets' },
+    year: '2024',
+    location: { pt: 'Bonito, MS', en: 'Bonito, MS - Brazil' },
+    cover: 'assets/images/projects/chales/cover.jpg',
+    gallery: [
+      { src: 'assets/images/projects/chales/01.jpg', alt: { pt: 'Vista do conjunto com integracao a area externa', en: 'View of the chalet set integrated with the outdoor area' }, layout: 'wide' },
+      { src: 'assets/images/projects/chales/02.jpg', alt: { pt: 'Interior do chale com atmosfera acolhedora', en: 'Chalet interior with a welcoming atmosphere' }, layout: 'narrow' },
+    ],
+    overview: {
+      pt: '<p>Projeto de casa de temporada em Bonito, com ambientes pensados para proporcionar conforto e integracao com a natureza, criando uma experiencia acolhedora e imersiva para os hospedes.</p><p>Os chales individuais foram desenhados para garantir conforto e privacidade, com ambientes abertos e conectados a area externa, valorizando relaxamento e permanencia.</p>',
+      en: '<p>A holiday home project in Bonito with environments designed to provide comfort and integration with nature, creating a welcoming and immersive experience for guests.</p><p>The individual chalets were designed to ensure comfort and privacy, with open spaces connected to the outdoor area, enhancing relaxation and permanence.</p>',
+    },
+    statDeliverables: '2',
+    statWeeks: '2',
+    process: [
+      { number: '01', title: { pt: 'Programa de uso', en: 'Use program' }, text: { pt: 'Leitura das rotinas de uma hospedagem de temporada para organizar privacidade, descanso e vistas.', en: 'Reading the routines of a holiday accommodation to organise privacy, rest, and views.' } },
+      { number: '02', title: { pt: 'Relacao interior-exterior', en: 'Indoor-outdoor relationship' }, text: { pt: 'Desenho de ambientes abertos e conectados a area externa para ampliar sensacao de imersao.', en: 'Design of open spaces connected to the outdoors to expand the sense of immersion.' } },
+      { number: '03', title: { pt: 'Conforto do usuario', en: 'User comfort' }, text: { pt: 'Definicao de solucoes para acolhimento, circulacao fluida e permanencia prolongada.', en: 'Definition of solutions for warmth, fluid circulation, and prolonged stay.' } },
+      { number: '04', title: { pt: 'Ajustes de atmosfera', en: 'Atmosphere refinement' }, text: { pt: 'Refinamento da ambiencia para reforcar privacidade, relaxamento e identidade do lugar.', en: 'Atmosphere refinement to reinforce privacy, relaxation, and sense of place.' } },
+    ],
+    result: {
+      pt: '<p>O projeto entrega uma experiencia mais reservada e sensorial para quem se hospeda. A combinacao entre conforto, natureza e simplicidade bem resolvida sustenta a identidade acolhedora do conjunto.</p>',
+      en: '<p>The project delivers a more private and sensory experience for guests. The combination of comfort, nature, and well-resolved simplicity supports the welcoming identity of the ensemble.</p>',
+    },
+  },
+  {
+    slug: 'nascente-azul',
+    category: { pt: 'Atrativo Turistico', en: 'Tourist Attraction' },
+    title: { pt: 'Nascente Azul', en: 'Nascente Azul' },
+    tagline: {
+      pt: 'Receptivo, hall e refeitorio desenhados com materiais rusticos e elementos naturais para acolher desde a chegada.',
+      en: 'Reception, entry hall, and dining spaces designed with rustic materials and natural elements to welcome visitors from arrival.',
+    },
+    client: { pt: 'Nascente Azul', en: 'Nascente Azul' },
+    scope: { pt: 'Receptivo, hall e refeitorio', en: 'Reception, hall, and dining areas' },
+    year: '2024',
+    location: { pt: 'Bonito, MS', en: 'Bonito, MS - Brazil' },
+    cover: 'assets/images/projects/nascente-azul/cover.jpg',
+    gallery: [
+      { src: 'assets/images/projects/nascente-azul/01.jpg', alt: { pt: 'Hall e receptivo com materiais naturais', en: 'Reception hall with natural materials' }, layout: 'half' },
+      { src: 'assets/images/projects/nascente-azul/02.jpg', alt: { pt: 'Refeitorio integrado a identidade do atrativo', en: 'Dining space aligned with the attraction identity' }, layout: 'half' },
+    ],
+    overview: {
+      pt: '<p>Receptivo e hall de entrada projetados para o atrativo turistico em Bonito. A proposta valoriza o uso de materiais rusticos e aconchegantes, combinados a elementos naturais que trazem leveza ao ambiente.</p><p>O projeto se amplia para o refeitorio, preservando a arquitetura do atrativo e criando uma recepcao acolhedora, alinhada a identidade do local e preparada para receber visitantes com clareza e conforto.</p>',
+      en: '<p>Reception and entry hall designed for the tourist attraction in Bonito. The proposal values rustic and welcoming materials combined with natural elements that bring lightness to the environment.</p><p>The project extends into the dining area, preserving the attraction architecture and creating a welcoming arrival aligned with the site identity and prepared to receive visitors with clarity and comfort.</p>',
+    },
+    statDeliverables: '2',
+    statWeeks: '2',
+    process: [
+      { number: '01', title: { pt: 'Identidade do atrativo', en: 'Attraction identity' }, text: { pt: 'Leitura da arquitetura existente para desenhar um acolhimento coerente com o lugar.', en: 'Reading the existing architecture to design a welcome consistent with the place.' } },
+      { number: '02', title: { pt: 'Materiais e leveza', en: 'Materials and lightness' }, text: { pt: 'Selecao de elementos rusticos e naturais para equilibrar robustez, conforto e leveza visual.', en: 'Selection of rustic and natural elements to balance robustness, comfort, and visual lightness.' } },
+      { number: '03', title: { pt: 'Fluxo de chegada', en: 'Arrival flow' }, text: { pt: 'Organizacao de receptivo e hall para orientar o visitante com clareza e acolhimento.', en: 'Organisation of reception and hall to guide the visitor with clarity and warmth.' } },
+      { number: '04', title: { pt: 'Continuidade no refeitorio', en: 'Continuity in dining' }, text: { pt: 'Extensao da mesma linguagem para o refeitorio, reforcando unidade e pertencimento.', en: 'Extension of the same language into the dining area, reinforcing unity and belonging.' } },
+    ],
+    result: {
+      pt: '<p>O conjunto entrega uma chegada mais acolhedora e uma experiencia mais coerente ao longo do percurso do visitante. A materialidade reforca a identidade do atrativo sem competir com a paisagem natural.</p>',
+      en: '<p>The project delivers a more welcoming arrival and a more coherent experience throughout the visitor journey. The material palette reinforces the attraction identity without competing with the natural landscape.</p>',
+    },
+  },
+  {
+    slug: 'casa-de-fazenda',
+    category: { pt: 'Residencial', en: 'Residential' },
+    title: { pt: 'Casa de Fazenda', en: 'Country House' },
+    tagline: {
+      pt: 'Casa para receber visitantes com estetica rustica, integrando quartos, jantar, cozinha, lavabo e area externa.',
+      en: 'House designed to host visitors with a rustic aesthetic, integrating bedrooms, dining, kitchen, powder room, and outdoor areas.',
+    },
+    client: { pt: 'Residencia para visitantes', en: 'Visitor residence' },
+    scope: { pt: 'Quartos, sala de jantar, cozinha e lavabo', en: 'Bedrooms, dining room, kitchen, and powder room' },
+    year: '2024',
+    location: { pt: 'Regiao de Bonito, MS', en: 'Bonito region, MS - Brazil' },
+    cover: 'assets/images/projects/casa-de-fazenda/cover.jpg',
+    gallery: [
+      { src: 'assets/images/projects/casa-de-fazenda/01.jpg', alt: { pt: 'Vista geral da casa com linguagem rustica', en: 'General view of the house with a rustic language' }, layout: 'wide' },
+      { src: 'assets/images/projects/casa-de-fazenda/02.jpg', alt: { pt: 'Quarto com materiais naturais e atmosfera acolhedora', en: 'Bedroom with natural materials and a welcoming atmosphere' }, layout: 'half' },
+      { src: 'assets/images/projects/casa-de-fazenda/03.jpg', alt: { pt: 'Sala de jantar conectada ao restante da casa', en: 'Dining room connected to the rest of the house' }, layout: 'half' },
+      { src: 'assets/images/projects/casa-de-fazenda/04.jpg', alt: { pt: 'Cozinha integrada a proposta rustica', en: 'Kitchen integrated into the rustic proposal' }, layout: 'wide' },
+      { src: 'assets/images/projects/casa-de-fazenda/05.jpg', alt: { pt: 'Lavabo com transicao para o jardim', en: 'Powder room transitioning toward the garden' }, layout: 'half' },
+      { src: 'assets/images/projects/casa-de-fazenda/06.jpg', alt: { pt: 'Detalhe do dialogo entre interiores e entorno', en: 'Detail of the dialogue between interiors and surroundings' }, layout: 'half' },
+    ],
+    overview: {
+      pt: '<p>Casa projetada para receber visitantes, com estetica rustica que preserva a identidade das fazendas da regiao. A disposicao dos ambientes e a escolha dos elementos de design foram pensadas para integrar quartos, sala de jantar, cozinha e lavabo a area externa.</p><p>Em dialogo com essa atmosfera, o projeto valoriza uma experiencia sofisticada, acolhedora e em sintonia com a natureza, criando transicoes suaves entre os ambientes internos e o entorno.</p>',
+      en: '<p>This house was designed to host visitors, with a rustic aesthetic that preserves the identity of farms in the region. The layout and design choices were planned to integrate bedrooms, dining room, kitchen, and powder room with the outdoor area.</p><p>In dialogue with this atmosphere, the project values a sophisticated and welcoming experience in tune with nature, creating smooth transitions between interior environments and the surroundings.</p>',
+    },
+    statDeliverables: '4',
     statWeeks: '6',
     process: [
-      { number: '01', title: 'Auditoria digital', text: 'AnÃ¡lise das redes existentes, benchmarking e identificaÃ§Ã£o das oportunidades de melhoria.' },
-      { number: '02', title: 'Identidade digital', text: 'AdaptaÃ§Ã£o da marca para o ambiente digital: paleta, filtros fotogrÃ¡ficos, tipografia e Ã­cones.' },
-      { number: '03', title: 'Templates', text: 'CriaÃ§Ã£o de 45 templates editÃ¡veis no Canva para feed, stories e destaques.' },
-      { number: '04', title: 'CapacitaÃ§Ã£o', text: 'Treinamento da equipe para uso dos templates e implementaÃ§Ã£o da estratÃ©gia de conteÃºdo.' },
+      { number: '01', title: { pt: 'Memoria da fazenda', en: 'Farm memory' }, text: { pt: 'Leitura da linguagem rustica regional para preservar identidade sem perder refinamento.', en: 'Reading the regional rustic language to preserve identity without losing refinement.' } },
+      { number: '02', title: { pt: 'Integracao dos ambientes', en: 'Integration of spaces' }, text: { pt: 'Organizacao de quartos, jantar, cozinha e lavabo para ampliar continuidade e convivencia.', en: 'Organisation of bedrooms, dining, kitchen, and powder room to expand continuity and conviviality.' } },
+      { number: '03', title: { pt: 'Transicao com o jardim', en: 'Transition to the garden' }, text: { pt: 'Desenho de passagens e vistas que aproximam o interior da area externa.', en: 'Design of transitions and views that bring the interior closer to the outdoor area.' } },
+      { number: '04', title: { pt: 'Acolhimento final', en: 'Final sense of welcome' }, text: { pt: 'Refinamento de materiais e atmosfera para sustentar uma experiencia sofisticada e afetiva.', en: 'Refinement of materials and atmosphere to sustain a sophisticated and emotional experience.' } },
     ],
-    result: `<p>Em trÃªs meses de implementaÃ§Ã£o, a Pousada Mar triplicou o engajamento no Instagram, aumentou em 60% as reservas vindas das redes sociais e conseguiu um recurso editorial espontÃ¢neo no perfil de uma influenciadora de viagem com 800 mil seguidores.</p>`,
-  },
-  {
-    slug: 'confeitaria-petale',
-    category: 'Identidade Visual',
-    title: 'Confeitaria PÃ©tale',
-    tagline: 'Logo, embalagens e PDV que transformam doces em presentes.',
-    client: 'Confeitaria PÃ©tale',
-    scope: 'Identidade Visual',
-    year: '2022',
-    location: 'Curitiba, PR',
-    cover: 'assets/images/project-petale.svg',
-    gallery: [
-      { src: 'assets/images/petale-01.svg', alt: 'Logotipo Confeitaria PÃ©tale', layout: 'half' },
-      { src: 'assets/images/petale-02.svg', alt: 'Caixas e embalagens', layout: 'half' },
-      { src: 'assets/images/petale-03.svg', alt: 'Lacre e fitas', layout: 'wide' },
-      { src: 'assets/images/petale-04.svg', alt: 'Fachada da confeitaria', layout: 'narrow' },
-      { src: 'assets/images/petale-05.svg', alt: 'Material de PDV', layout: 'third' },
-      { src: 'assets/images/petale-06.svg', alt: 'Sacola personalizada', layout: 'third' },
-      { src: 'assets/images/petale-07.svg', alt: 'Caixa de bombons', layout: 'third' },
-    ],
-    overview: `<p>A Confeitaria PÃ©tale produz doces artesanais premium com receitas inspiradas na confeitaria francesa. A fundadora queria uma identidade que comunicasse essa origem, essa dedicaÃ§Ã£o ao detalhe, mas com personalidade brasileira e contemporÃ¢nea.</p>
-<p>Criamos um sistema de identidade delicado e preciso, com logotipo caligrÃ¡fico, sÃ­mbolo botÃ¢nico de pÃ©tala e um sistema de embalagem que transforma cada compra em uma experiÃªncia de presente.</p>`,
-    statDeliverables: '31',
-    statWeeks: '9',
-    process: [
-      { number: '01', title: 'ReferÃªncias francesas', text: 'Pesquisa profunda em confeitarias parisienses e maisons de chocolat para entender a linguagem do segmento premium.' },
-      { number: '02', title: 'Desenvolvimento do logo', text: 'TrÃªs rounds de desenvolvimento atÃ© chegar ao logotipo caligrÃ¡fico com sÃ­mbolo de pÃ©tala-P integrado.' },
-      { number: '03', title: 'Sistema de embalagem', text: 'Design de caixas, sacos, lacres, fitas e etiquetas em trÃªs variaÃ§Ãµes para diferentes produtos.' },
-      { number: '04', title: 'PDV e fachada', text: 'AplicaÃ§Ã£o da identidade na fachada, materiais de loja e uniformes.' },
-    ],
-    result: `<p>ApÃ³s o rebranding, a Confeitaria PÃ©tale entrou no segmento de presentes corporativos premium e fechou contratos com quatro hotÃ©is boutique em Curitiba para fornecimento de amenities personalizados.</p>`,
-  },
-  {
-    slug: 'resort-terras',
-    category: 'Branding',
-    title: 'Resort Terras',
-    tagline: 'Reposicionamento que levou um resort ao segmento de ecoturismo de luxo.',
-    client: 'Resort Terras do Verde',
-    scope: 'Branding Completo',
-    year: '2022',
-    location: 'Chapada dos Veadeiros, GO',
-    cover: 'assets/images/project-terras.svg',
-    gallery: [
-      { src: 'assets/images/terras-01.svg', alt: 'Nova identidade Resort Terras', layout: 'wide' },
-      { src: 'assets/images/terras-02.svg', alt: 'Papelaria e brindes', layout: 'narrow' },
-      { src: 'assets/images/terras-03.svg', alt: 'SinalizaÃ§Ã£o ambiental', layout: 'half' },
-      { src: 'assets/images/terras-04.svg', alt: 'Material de vendas', layout: 'half' },
-      { src: 'assets/images/terras-05.svg', alt: 'Uniformes e tÃªxteis', layout: 'full' },
-    ],
-    overview: `<p>O Resort Terras do Verde estava em um momento de pivÃ´: de resort convencional para referÃªncia em ecoturismo de luxo na Chapada dos Veadeiros. A identidade antiga nÃ£o comunicava mais a proposta de conexÃ£o com a natureza do cerrado e a exclusividade da experiÃªncia.</p>
-<p>Lideramos o reposicionamento de marca completo: novo nome reduzido, nova identidade, novo tom de voz e sistema de comunicaÃ§Ã£o para todos os pontos de contato.</p>`,
-    statDeliverables: '40',
-    statWeeks: '14',
-    process: [
-      { number: '01', title: 'DiagnÃ³stico', text: 'ImersÃ£o de dois dias no resort, entrevistas com hÃ³spedes e anÃ¡lise completa do posicionamento atual e desejado.' },
-      { number: '02', title: 'EstratÃ©gia de marca', text: 'DefiniÃ§Ã£o de arquÃ©tipos, proposta de valor, tom de voz e plataforma de marca.' },
-      { number: '03', title: 'Nova identidade', text: 'Desenvolvimento do sistema visual: logotipo inspirado no cerrado, paleta terrosa e sistema tipogrÃ¡fico robusto.' },
-      { number: '04', title: 'ImplantaÃ§Ã£o', text: 'SupervisÃ£o da implantaÃ§Ã£o em 40 pontos de contato, do site ao uniforme dos guias.' },
-    ],
-    result: `<p>O Resort Terras encerrou o primeiro ano com a nova marca com 95% de ocupaÃ§Ã£o na alta temporada, ticket mÃ©dio 35% maior e duas reportagens em revistas internacionais de ecoturismo de luxo.</p>`,
+    result: {
+      pt: '<p>O resultado e uma casa que acolhe sem perder autenticidade. A linguagem rustica e reinterpretada com cuidado para criar um ambiente memoravel, funcional e profundamente conectado ao entorno.</p>',
+      en: '<p>The result is a house that welcomes without losing authenticity. The rustic language is carefully reinterpreted to create a memorable, functional environment deeply connected to its surroundings.</p>',
+    },
   },
 ];
 
-/* â”€â”€â”€ HELPERS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+let currentProject: Project | null = null;
+let lightboxImages: GalleryItem[] = [];
+let lightboxCurrent = 0;
 
 function getSlugFromURL() {
   const params = new URLSearchParams(window.location.search);
   return params.get('slug') || '';
 }
 
-function findProject(slug) {
-  return PROJECTS.find(p => p.slug === slug) || null;
+function getCurrentLang(): Lang {
+  const stored = localStorage.getItem('dbd_lang');
+  if (stored === 'en') return 'en';
+
+  const htmlLang = document.documentElement.lang.toLowerCase();
+  return htmlLang.startsWith('en') ? 'en' : 'pt';
 }
 
-function prevProject(slug) {
-  const idx = PROJECTS.findIndex(p => p.slug === slug);
-  if (idx <= 0) return null;
-  return PROJECTS[idx - 1];
+function findProject(slug: string) {
+  return PROJECTS.find(project => project.slug === slug) || null;
 }
 
-function nextProject(slug) {
-  const idx = PROJECTS.findIndex(p => p.slug === slug);
-  if (idx < 0 || idx >= PROJECTS.length - 1) return null;
-  return PROJECTS[idx + 1];
+function prevProject(slug: string) {
+  const index = PROJECTS.findIndex(project => project.slug === slug);
+  if (index <= 0) return null;
+  return PROJECTS[index - 1];
 }
 
-function el(id) {
+function nextProject(slug: string) {
+  const index = PROJECTS.findIndex(project => project.slug === slug);
+  if (index < 0 || index >= PROJECTS.length - 1) return null;
+  return PROJECTS[index + 1];
+}
+
+function getText(entry: LocalizedText, lang: Lang) {
+  return entry[lang];
+}
+
+function el(id: string) {
   return document.getElementById(id);
 }
 
-/* â”€â”€â”€ DOM POPULATION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-
-function populateMeta(project) {
-  document.title = `${project.title} â€” Dani Braga Design`;
-  const ogTitle = document.querySelector('meta[property="og:title"]');
-  if (ogTitle) ogTitle.content = `${project.title} â€” Dani Braga Design`;
-  const ogImg = document.querySelector('meta[property="og:image"]');
-  if (ogImg) ogImg.content = project.cover;
+function stripHtml(html: string) {
+  return html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
 }
 
-function populateHero(project) {
-  const cover = el('project-cover');
+function populateMeta(project: Project, lang: Lang) {
+  const title = getText(project.title, lang);
+  const tagline = getText(project.tagline, lang);
+  const absoluteCover = new URL(project.cover, window.location.href).href;
+
+  document.title = `${title} - Dani Braga Design`;
+
+  const metaDescription = document.querySelector('meta[name="description"]');
+  if (metaDescription) {
+    metaDescription.setAttribute('content', stripHtml(tagline));
+  }
+
+  const ogTitle = document.querySelector('meta[property="og:title"]');
+  if (ogTitle) ogTitle.setAttribute('content', `${title} - Dani Braga Design`);
+
+  const ogImage = document.querySelector('meta[property="og:image"]');
+  if (ogImage) ogImage.setAttribute('content', absoluteCover);
+
+  const ogUrl = document.querySelector('meta[property="og:url"]');
+  if (ogUrl) ogUrl.setAttribute('content', window.location.href);
+
+  const canonical = document.querySelector('link[rel="canonical"]');
+  if (canonical) canonical.setAttribute('href', window.location.href);
+}
+
+function populateHero(project: Project, lang: Lang) {
+  const cover = el('project-cover') as HTMLImageElement | null;
   if (cover) {
     cover.src = project.cover;
-    cover.alt = `${project.title} â€” imagem de capa`;
+    cover.alt = `${getText(project.title, lang)} - ${getText(project.tagline, lang)}`;
   }
 
   const category = el('project-category');
-  if (category) category.textContent = project.category;
+  if (category) category.textContent = getText(project.category, lang);
 
   const title = el('project-title');
-  if (title) title.textContent = project.title;
+  if (title) title.textContent = getText(project.title, lang);
 
   const tagline = el('project-tagline');
-  if (tagline) tagline.textContent = project.tagline;
+  if (tagline) tagline.textContent = getText(project.tagline, lang);
 
   const client = el('project-client');
-  if (client) client.textContent = project.client;
+  if (client) client.textContent = getText(project.client, lang);
 
   const scope = el('project-scope');
-  if (scope) scope.textContent = project.scope;
+  if (scope) scope.textContent = getText(project.scope, lang);
 
   const year = el('project-year');
   if (year) year.textContent = project.year;
 
   const location = el('project-location');
-  if (location) location.textContent = project.location;
+  if (location) location.textContent = getText(project.location, lang);
 
   const breadcrumbTitle = el('breadcrumb-title');
-  if (breadcrumbTitle) breadcrumbTitle.textContent = project.title;
+  if (breadcrumbTitle) breadcrumbTitle.textContent = getText(project.title, lang);
 }
 
-function populateOverview(project) {
+function populateOverview(project: Project, lang: Lang) {
   const overview = el('project-overview');
-  if (overview) overview.innerHTML = project.overview;
+  if (overview) overview.innerHTML = getText(project.overview, lang);
 
   const deliverables = el('project-stat-deliverables');
   if (deliverables) deliverables.textContent = project.statDeliverables;
@@ -268,26 +368,28 @@ function populateOverview(project) {
   if (weeks) weeks.textContent = project.statWeeks;
 }
 
-function populateGallery(project) {
+function populateGallery(project: Project, lang: Lang) {
   const section = el('project-gallery');
   if (!section) return;
+
+  section.innerHTML = '';
 
   const grid = document.createElement('div');
   grid.className = 'project-gallery__grid';
 
-  project.gallery.forEach((img, index) => {
+  project.gallery.forEach((image, index) => {
     const item = document.createElement('button');
-    item.className = `gallery-item gallery-item--${img.layout}`;
+    item.className = `gallery-item gallery-item--${image.layout}`;
     item.type = 'button';
-    item.setAttribute('data-index', index);
-    item.setAttribute('aria-label', `Ampliar imagem: ${img.alt}`);
+    item.setAttribute('data-index', String(index));
+    item.setAttribute('aria-label', lang === 'en' ? `Open image: ${getText(image.alt, lang)}` : `Ampliar imagem: ${getText(image.alt, lang)}`);
 
-    const pic = document.createElement('img');
-    pic.src = img.src;
-    pic.alt = img.alt;
-    pic.loading = index < 3 ? 'eager' : 'lazy';
+    const picture = document.createElement('img');
+    picture.src = image.src;
+    picture.alt = getText(image.alt, lang);
+    picture.loading = index < 3 ? 'eager' : 'lazy';
 
-    item.appendChild(pic);
+    item.appendChild(picture);
     grid.appendChild(item);
 
     item.addEventListener('click', () => openLightbox(index, project.gallery));
@@ -296,182 +398,166 @@ function populateGallery(project) {
   section.appendChild(grid);
 }
 
-function populateProcess(project) {
+function populateProcess(project: Project, lang: Lang) {
   const container = el('project-process');
   if (!container) return;
 
+  container.innerHTML = '';
+
   project.process.forEach(stage => {
-    const div = document.createElement('div');
-    div.className = 'process-stage';
-    div.setAttribute('data-reveal', '');
-    div.innerHTML = `
+    const item = document.createElement('div');
+    item.className = 'process-stage';
+    item.setAttribute('data-reveal', '');
+    item.innerHTML = `
       <p class="process-stage__number">${stage.number}</p>
-      <h3 class="process-stage__title">${stage.title}</h3>
-      <p class="process-stage__text">${stage.text}</p>
+      <h3 class="process-stage__title">${getText(stage.title, lang)}</h3>
+      <p class="process-stage__text">${getText(stage.text, lang)}</p>
     `;
-    container.appendChild(div);
+    container.appendChild(item);
   });
 }
 
-function populateResult(project) {
+function populateResult(project: Project, lang: Lang) {
   const result = el('project-result');
-  if (result) result.innerHTML = project.result;
+  if (result) result.innerHTML = getText(project.result, lang);
 }
 
-function populateNavigation(project) {
-  const prev = prevProject(project.slug);
+function populateNavigation(project: Project, lang: Lang) {
+  const previous = prevProject(project.slug);
   const next = nextProject(project.slug);
 
-  const prevBtn  = el('nav-prev');
-  const prevTitle = el('nav-prev-title');
-  const nextBtn  = el('nav-next');
+  const previousButton = el('nav-prev') as HTMLAnchorElement | null;
+  const previousTitle = el('nav-prev-title');
+  const nextButton = el('nav-next') as HTMLAnchorElement | null;
   const nextTitle = el('nav-next-title');
 
-  if (prevBtn && prevTitle) {
-    if (prev) {
-      prevBtn.href = `projeto-detalhe.html?slug=${prev.slug}`;
-      prevTitle.textContent = prev.title;
+  if (previousButton && previousTitle) {
+    if (previous) {
+      previousButton.href = `projeto-detalhe.html?slug=${previous.slug}`;
+      previousButton.style.visibility = 'visible';
+      previousTitle.textContent = getText(previous.title, lang);
     } else {
-      prevBtn.style.visibility = 'hidden';
+      previousButton.style.visibility = 'hidden';
+      previousTitle.textContent = '';
     }
   }
 
-  if (nextBtn && nextTitle) {
+  if (nextButton && nextTitle) {
     if (next) {
-      nextBtn.href = `projeto-detalhe.html?slug=${next.slug}`;
-      nextTitle.textContent = next.title;
+      nextButton.href = `projeto-detalhe.html?slug=${next.slug}`;
+      nextButton.style.visibility = 'visible';
+      nextTitle.textContent = getText(next.title, lang);
     } else {
-      nextBtn.style.visibility = 'hidden';
+      nextButton.style.visibility = 'hidden';
+      nextTitle.textContent = '';
     }
   }
 }
 
 function showNotFound() {
-  const main = document.getElementById('main-content');
+  const main = el('main-content');
   if (!main) return;
+
+  const lang = getCurrentLang();
+  const title = lang === 'en' ? 'Project not found' : 'Projeto não encontrado';
+  const button = lang === 'en' ? 'View all projects' : 'Ver todos os projetos';
 
   main.innerHTML = `
     <div style="text-align:center; padding: 10rem 2rem;">
       <p style="font-size:4rem; margin-bottom:1rem;">404</p>
-      <h1 style="font-size:1.5rem; font-weight:300; margin-bottom:2rem;">Projeto nÃ£o encontrado</h1>
-      <a href="projetos.html" class="btn btn--primary">Ver todos os projetos</a>
+      <h1 style="font-size:1.5rem; font-weight:300; margin-bottom:2rem;">${title}</h1>
+      <a href="projetos.html" class="btn btn--primary">${button}</a>
     </div>
   `;
 }
 
-/* â”€â”€â”€ LIGHTBOX â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+function renderProject(project: Project) {
+  const lang = getCurrentLang();
 
-let _lbImages  = [];
-let _lbCurrent = 0;
+  populateMeta(project, lang);
+  populateHero(project, lang);
+  populateOverview(project, lang);
+  populateGallery(project, lang);
+  populateProcess(project, lang);
+  populateResult(project, lang);
+  populateNavigation(project, lang);
 
-function openLightbox(index, images) {
-  _lbImages  = images;
-  _lbCurrent = index;
+  const whatsapp = document.querySelector('.whatsapp-btn') as HTMLElement | null;
+  if (whatsapp) {
+    whatsapp.dataset.message = lang === 'en'
+      ? `Hello! I loved the ${getText(project.title, lang)} project and would like to talk about something similar for my space.`
+      : `Olá! Adorei o projeto ${getText(project.title, lang)} e gostaria de conversar sobre algo parecido para o meu espaço.`;
+  }
+}
+
+function openLightbox(index: number, images: GalleryItem[]) {
+  lightboxImages = images;
+  lightboxCurrent = index;
   renderLightbox();
 
-  const lb = document.getElementById('lightbox');
-  if (lb) {
-    lb.removeAttribute('hidden');
+  const lightbox = el('lightbox');
+  if (lightbox) {
+    lightbox.removeAttribute('hidden');
     document.body.style.overflow = 'hidden';
     document.addEventListener('keydown', handleLightboxKey);
   }
 }
 
 function closeLightbox() {
-  const lb = document.getElementById('lightbox');
-  if (lb) {
-    lb.setAttribute('hidden', '');
+  const lightbox = el('lightbox');
+  if (lightbox) {
+    lightbox.setAttribute('hidden', '');
     document.body.style.overflow = '';
     document.removeEventListener('keydown', handleLightboxKey);
   }
 }
 
 function renderLightbox() {
-  const img     = document.getElementById('lightbox-img');
-  const caption = document.getElementById('lightbox-caption');
+  const image = el('lightbox-img') as HTMLImageElement | null;
+  const caption = el('lightbox-caption');
+  const lang = getCurrentLang();
 
-  if (!img || !_lbImages.length) return;
+  if (!image || !lightboxImages.length) return;
 
-  const current = _lbImages[_lbCurrent];
-  img.src = current.src;
-  img.alt = current.alt;
+  const current = lightboxImages[lightboxCurrent];
+  image.src = current.src;
+  image.alt = getText(current.alt, lang);
 
-  if (caption) caption.textContent = current.alt;
+  if (caption) caption.textContent = getText(current.alt, lang);
 }
 
-function handleLightboxKey(e) {
-  if (e.key === 'Escape')     closeLightbox();
-  if (e.key === 'ArrowLeft')  moveLightbox(-1);
-  if (e.key === 'ArrowRight') moveLightbox(1);
+function handleLightboxKey(event: KeyboardEvent) {
+  if (event.key === 'Escape') closeLightbox();
+  if (event.key === 'ArrowLeft') moveLightbox(-1);
+  if (event.key === 'ArrowRight') moveLightbox(1);
 }
 
-function moveLightbox(dir) {
-  const len = _lbImages.length;
-  _lbCurrent = (_lbCurrent + dir + len) % len;
+function moveLightbox(direction: number) {
+  const total = lightboxImages.length;
+  lightboxCurrent = (lightboxCurrent + direction + total) % total;
   renderLightbox();
 }
 
 function initLightboxControls() {
-  const lb       = document.getElementById('lightbox');
-  if (!lb) return;
+  const lightbox = el('lightbox');
+  if (!lightbox) return;
 
-  const backdrop = lb.querySelector('.lightbox__backdrop');
-  const closeBtn = lb.querySelector('.lightbox__close');
-  const prevBtn  = lb.querySelector('.lightbox__prev');
-  const nextBtn  = lb.querySelector('.lightbox__next');
+  const backdrop = lightbox.querySelector('.lightbox__backdrop');
+  const closeButton = lightbox.querySelector('.lightbox__close');
+  const previousButton = lightbox.querySelector('.lightbox__prev');
+  const nextButton = lightbox.querySelector('.lightbox__next');
 
   if (backdrop) backdrop.addEventListener('click', closeLightbox);
-  if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
-  if (prevBtn)  prevBtn.addEventListener('click', () => moveLightbox(-1));
-  if (nextBtn)  nextBtn.addEventListener('click', () => moveLightbox(1));
+  if (closeButton) closeButton.addEventListener('click', closeLightbox);
+  if (previousButton) previousButton.addEventListener('click', () => moveLightbox(-1));
+  if (nextButton) nextButton.addEventListener('click', () => moveLightbox(1));
 }
-
-/* â”€â”€â”€ FILTER BUTTONS (projetos.html) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-
-function initFilterButtons() {
-  const buttons = document.querySelectorAll('[data-filter]');
-  if (!buttons.length) return;
-
-  buttons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const filter = btn.dataset.filter;
-
-      // Atualiza estado ativo
-      buttons.forEach(b => b.classList.toggle('is-active', b === btn));
-
-      // Filtra cards
-      const items = document.querySelectorAll('.portfolio-item');
-      let visible = 0;
-
-      items.forEach(item => {
-        const match = filter === '*' || item.dataset.category === filter;
-        if (match) {
-          delete item.dataset.hidden;
-          visible++;
-        } else {
-          item.dataset.hidden = '';
-        }
-      });
-
-      // Estado vazio
-      const empty = document.getElementById('portfolio-empty');
-      if (empty) empty.hidden = visible > 0;
-    });
-  });
-}
-
-/* â”€â”€â”€ INIT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Lightbox controls (sempre, se o elemento existir)
   initLightboxControls();
 
-  // Filter (projetos.html â€” graceful no-op em outras pÃ¡ginas)
-  initFilterButtons();
-
-  // Detail page logic
   const slug = getSlugFromURL();
-  if (!slug) return; // nÃ£o Ã© a pÃ¡gina de detalhe
+  if (!slug) return;
 
   const project = findProject(slug);
   if (!project) {
@@ -479,13 +565,13 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
-  populateMeta(project);
-  populateHero(project);
-  populateOverview(project);
-  populateGallery(project);
-  populateProcess(project);
-  populateResult(project);
-  populateNavigation(project);
+  currentProject = project;
+  renderProject(project);
+
+  document.addEventListener('i18n:change', () => {
+    if (!currentProject) return;
+    renderProject(currentProject);
+  });
 });
 
 export { PROJECTS, findProject };
