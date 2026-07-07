@@ -4,6 +4,8 @@
  */
 
 const Forms = (() => {
+  const WHATSAPP_PHONE = '5567998525247';
+
   /* ─── INIT ───────────────────────────────── */
 
   function init() {
@@ -24,6 +26,60 @@ const Forms = (() => {
     });
 
     form.addEventListener('submit', (e) => handleSubmit(e, form));
+    bindWhatsAppButton(form);
+  }
+
+  function bindWhatsAppButton(form) {
+    const button = form.querySelector('[data-whatsapp-submit]');
+    if (!button) return;
+
+    button.addEventListener('click', () => {
+      const message = buildWhatsAppMessage(form);
+      button.href = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`;
+    });
+  }
+
+  function buildWhatsAppMessage(form) {
+    const lang = document.documentElement.lang === 'en' ? 'en' : 'pt';
+
+    const getValue = (name) => {
+      const field = form.querySelector(`[name="${name}"]`);
+      return field?.value?.trim() || '';
+    };
+
+    const getServiceLabel = () => {
+      const serviceField = form.querySelector('[name="service"]');
+      if (!serviceField || !serviceField.value) return '';
+      return serviceField.options[serviceField.selectedIndex]?.text?.trim() || '';
+    };
+
+    const values = {
+      name: getValue('name'),
+      email: getValue('email'),
+      company: getValue('company'),
+      service: getServiceLabel(),
+      message: getValue('message'),
+    };
+
+    const lines = lang === 'en'
+      ? [
+          'Hello, Dani! I came from your website and would like to discuss a project.',
+          values.name ? `Name: ${values.name}` : '',
+          values.email ? `Email: ${values.email}` : '',
+          values.company ? `Company: ${values.company}` : '',
+          values.service ? `Project type: ${values.service}` : '',
+          values.message ? `Message: ${values.message}` : '',
+        ]
+      : [
+          'Ola, Dani! Vim pelo site e gostaria de conversar sobre um projeto.',
+          values.name ? `Nome: ${values.name}` : '',
+          values.email ? `E-mail: ${values.email}` : '',
+          values.company ? `Empresa: ${values.company}` : '',
+          values.service ? `Tipo de projeto: ${values.service}` : '',
+          values.message ? `Mensagem: ${values.message}` : '',
+        ];
+
+    return lines.filter(Boolean).join('\n');
   }
 
   /* ─── VALIDAÇÃO DE CAMPO ─────────────────── */
@@ -94,7 +150,7 @@ const Forms = (() => {
       if (res.ok) {
         showSuccess(form);
       } else {
-        showError(form, 'Erro ao enviar. Tente novamente ou me chame no Instagram.');
+        showError(form, 'Erro ao enviar. Tente novamente ou me chame no WhatsApp.');
       }
     } catch {
       showError(form, 'Sem conexão. Tente novamente em breve.');

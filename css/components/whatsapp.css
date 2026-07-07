@@ -1,11 +1,11 @@
 /* ============================================
-  INSTAGRAM — Dani Braga Design
+  WHATSAPP — Dani Braga Design
   Botão flutuante bottom-right
   ============================================ */
 
 /* ─── BOTÃO FLUTUANTE ───────────────────────── */
 
-.instagram-float {
+.whatsapp-float {
   position: fixed;
   bottom: var(--space-6);
   right: var(--space-6);
@@ -20,7 +20,7 @@
   transition: opacity var(--transition-base), transform var(--transition-base);
 }
 
-.instagram-float.is-visible {
+.whatsapp-float.is-visible {
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0);
@@ -28,7 +28,7 @@
 
 /* ─── TOOLTIP ───────────────────────────────── */
 
-.instagram-float__tooltip {
+.whatsapp-float__tooltip {
   background: var(--color-dark);
   color: var(--color-cream);
   font-family: var(--font-sans);
@@ -50,11 +50,11 @@
 }
 
 @media (min-width: 768px) {
-  .instagram-float__tooltip {
+  .whatsapp-float__tooltip {
     display: block;
   }
 
-  .instagram-float:hover .instagram-float__tooltip {
+  .whatsapp-float:hover .whatsapp-float__tooltip {
     opacity: 1;
     transform: translateX(0);
   }
@@ -62,31 +62,31 @@
 
 /* ─── ÍCONE ─────────────────────────────────── */
 
-.instagram-float__link {
+.whatsapp-float__link {
   width: 54px;
   height: 54px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #E1306C;
+  background-color: var(--color-whatsapp);
   border-radius: var(--radius-full);
   box-shadow: 0 4px 18px rgba(37, 211, 102, 0.35);
   flex-shrink: 0;
   transition: background-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-.instagram-float:hover .instagram-float__link {
-  background-color: #C13584;
+.whatsapp-float:hover .whatsapp-float__link {
+  background-color: var(--color-whatsapp-dark);
   transform: scale(1.06);
-  box-shadow: 0 6px 24px rgba(225, 48, 108, 0.45);
+  box-shadow: 0 6px 24px rgba(37, 211, 102, 0.45);
 }
 
-.instagram-float__link:focus-visible {
-  outline: 3px solid #E1306C;
+.whatsapp-float__link:focus-visible {
+  outline: 3px solid var(--color-whatsapp);
   outline-offset: 3px;
 }
 
-.instagram-float__link svg {
+.whatsapp-float__link svg {
   width: 28px;
   height: 28px;
   fill: var(--color-white);
@@ -95,17 +95,17 @@
 /* ─── RESPONSIVO ────────────────────────────── */
 
 @media (max-width: 639px) {
-  .instagram-float {
+  .whatsapp-float {
     bottom: var(--space-5);
     right: var(--space-4);
   }
 
-  .instagram-float__link {
+  .whatsapp-float__link {
     width: 48px;
     height: 48px;
   }
 
-  .instagram-float__link svg {
+  .whatsapp-float__link svg {
     width: 24px;
     height: 24px;
   }

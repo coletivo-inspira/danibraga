@@ -31,12 +31,12 @@
     "processEyebrow": "How I Work",
     "processTitle": "From immersion to delivery",
     "instagramTitle": "Behind the scenes on Instagram",
-    "instagramCta": "Follow @danibraga.design",
+    "instagramCta": "Follow @danibraga7",
     "ctaEyebrow": "Ready to begin?",
     "ctaTitle": "Let's create your next space",
     "ctaDesc": "Tell me about your project — hospitality or residential — and discover how the right interior design can transform it into an experience.",
     "ctaBtn": "Start Project",
-    "ctaBtnInstagram": "Instagram"
+    "ctaBtnWhatsapp": "WhatsApp"
   },
   "about": {
     "heroEyebrow": "About the Studio",
@@ -106,8 +106,9 @@
     "heroTitle": "Start your project",
     "heroDesc": "I reply to every message within 24 business hours.",
     "infoTitle": "Contact options",
-    "infoDesc": "Choose the channel you prefer. The studio responds by email and Instagram.",
+    "infoDesc": "Choose the channel you prefer. The studio responds by email, WhatsApp and Instagram.",
     "emailLabel": "Email",
+    "whatsappLabel": "WhatsApp",
     "instagramLabel": "Instagram",
     "locationLabel": "Location",
     "locationValue": "Bonito, MS — Brazil",
@@ -134,9 +135,10 @@
     "fieldMessage": "Message",
     "fieldMessagePlaceholder": "Tell me about your space, what you imagine for it, and what you hope to achieve with this project...",
     "formSubmit": "Send message",
+    "formWhatsappSubmit": "Send via WhatsApp",
     "formSending": "Sending...",
     "formSuccess": "Message sent! I'll be in touch soon.",
-    "formError": "Something went wrong. Please try again or message me on Instagram."
+    "formError": "Something went wrong. Please try again or message me on WhatsApp."
   },
   "process": {
     "step1Title": "Immersion",
@@ -180,5 +182,8 @@
   },
   "instagram": {
     "defaultLabel": "Message on Instagram"
+  },
+  "whatsapp": {
+    "defaultLabel": "Message on WhatsApp!"
   }
 }

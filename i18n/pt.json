@@ -31,12 +31,12 @@
     "processEyebrow": "Como Trabalho",
     "processTitle": "Da imersão à entrega",
     "instagramTitle": "Bastidores no Instagram",
-    "instagramCta": "Seguir @danibraga.design",
+    "instagramCta": "Seguir @danibraga7",
     "ctaEyebrow": "Pronto para começar?",
     "ctaTitle": "Vamos criar o seu próximo espaço",
     "ctaDesc": "Conte sobre o seu projeto — hospitalidade ou residencial — e descubra como o design de interiores certo o transforma em experiência.",
     "ctaBtn": "Iniciar Projeto",
-    "ctaBtnInstagram": "Instagram"
+    "ctaBtnWhatsapp": "WhatsApp"
   },
   "about": {
     "heroEyebrow": "Sobre o Estúdio",
@@ -106,8 +106,9 @@
     "heroTitle": "Inicie seu projeto",
     "heroDesc": "Respondo todas as mensagens em até 24 horas nos dias úteis.",
     "infoTitle": "Formas de contato",
-    "infoDesc": "Escolha o canal de sua preferência. O estúdio responde por e-mail e Instagram.",
+    "infoDesc": "Escolha o canal de sua preferencia. O estudio responde por e-mail, WhatsApp e Instagram.",
     "emailLabel": "E-mail",
+    "whatsappLabel": "WhatsApp",
     "instagramLabel": "Instagram",
     "locationLabel": "Localização",
     "locationValue": "Bonito, MS — Brasil",
@@ -134,9 +135,10 @@
     "fieldMessage": "Mensagem",
     "fieldMessagePlaceholder": "Conte sobre o seu espaço, o que você imagina para ele e o que busca com este projeto...",
     "formSubmit": "Enviar mensagem",
+    "formWhatsappSubmit": "Enviar pelo WhatsApp",
     "formSending": "Enviando...",
     "formSuccess": "Mensagem enviada! Entrarei em contato em breve.",
-    "formError": "Algo deu errado. Tente novamente ou me chame no Instagram."
+    "formError": "Algo deu errado. Tente novamente ou me chame no WhatsApp."
   },
   "process": {
     "step1Title": "Imersão",
@@ -180,5 +182,8 @@
   },
   "instagram": {
     "defaultLabel": "Fale no Instagram"
+  },
+  "whatsapp": {
+    "defaultLabel": "Fale no WhatsApp!"
   }
 }

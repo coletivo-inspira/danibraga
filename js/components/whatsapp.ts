@@ -1,34 +1,46 @@
 /**
- * instagram-contact.js — Dani Braga Design
- * Botão flutuante Instagram — aparece após scroll
+ * whatsapp-contact.js — Dani Braga Design
+ * Botão flutuante WhatsApp — aparece após scroll
  */
 
-const InstagramContact = (() => {
+const WhatsAppContact = (() => {
   const SCROLL_SHOW   = 400;
-  const DEFAULT_URL = 'https://instagram.com/danibraga.design';
+  const DEFAULT_PHONE = '5567998525247';
+  const DEFAULT_MESSAGES = {
+    pt: 'Ola! Vim pelo site e gostaria de conversar sobre um projeto de interiores.',
+    en: 'Hello! I found your website and would like to talk about an interior design project.',
+  };
 
   let btn, link;
 
   /* ─── INIT ───────────────────────────────── */
 
   function init() {
-    btn = document.querySelector('.instagram-float');
+    btn = document.querySelector('.whatsapp-float');
     if (!btn) return;
 
     link = btn.querySelector('a') || btn;
 
-    buildLink();
+    buildWhatsAppLink();
     bindEvents();
     checkVisibility();
   }
 
   /* ─── LINK ────────────────────────────────── */
 
-  function buildLink() {
-    const href = btn.dataset.href || DEFAULT_URL;
+  function buildWhatsAppLink() {
+    const phone = normalizePhone(btn.dataset.phone || DEFAULT_PHONE);
+    const lang = document.documentElement.lang === 'en' ? 'en' : 'pt';
+    const message = (btn.dataset.message || DEFAULT_MESSAGES[lang]).trim();
+    const href = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 
     if (link && link.tagName === 'A') link.href = href;
     else if (btn.tagName === 'A') btn.href = href;
+  }
+
+  function normalizePhone(phone) {
+    const digits = String(phone).replace(/\D/g, '');
+    return digits || DEFAULT_PHONE;
   }
 
   /* ─── VISIBILIDADE ───────────────────────── */
@@ -55,4 +67,4 @@ const InstagramContact = (() => {
   return { init };
 })();
 
-export default InstagramContact;
+export default WhatsAppContact;
